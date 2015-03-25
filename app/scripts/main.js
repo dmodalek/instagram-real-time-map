@@ -14,34 +14,42 @@ window.AbbInside = {
 
 $(document).ready(function () {
 	'use strict';
+
 	AbbInside.init();
+
+	var self = this;
+
 
 	//
 	// Socket.io
 	 var socket = io.connect();
 
-	socket.on('firstShow', function(data){
-		jQuery.each(data.firstShow, function() {
-
-			if(this.type == 'image' && this.location) {
-				AbbInside.Collections.instagrams.add(this);
-			}
+	socket.on('initialAdd', function(data){
+		jQuery.each(data.initialAdd, function() {
+			self.add(this);
 		})
 	});
 
-	var self = this;
-	socket.on('show', function(data){
-		var url = data.show;
+	socket.on('add', function(data){
+		var url = data.add;
                 $.ajax({
                     url: url,
                     type: 'POST',
                     crossDomain: true,
                     dataType: 'jsonp'
                 }).done(function (data) {
-                    self.renderTemplate(data);
+                    var current = data.data[0];
+                    self.add(current);
                 });
 	});
 
+	this.add = function(instagram) {
+		if(instagram.type == 'image' && instagram.location) {
+
+			console.log(instagram);
+			AbbInside.Collections.instagrams.add(instagram);
+		}
+	};
 
 
 	//

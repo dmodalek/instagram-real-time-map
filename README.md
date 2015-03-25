@@ -17,11 +17,11 @@ Instagram Client Manager: https://instagram.com/developer/clients/manage
 # Ressources
 
 ## Instagram API
-https://instagram.com/developer/realtime/
+- https://instagram.com/developer/realtime/
 
 ## Backbone JS with Google Maps
-http://natehunzaker.com/javascript/backbone/2011/02/11/learning-backbonejs-chapter-1-a-quick-overview.html
+- http://natehunzaker.com/javascript/backbone/2011/02/11/learning-backbonejs-chapter-1-a-quick-overview.html
 
 # Real Time Example using Istagram and Node
-http://www.bymichaellancaster.com/blog/how-i-built-lollagram-lollapalooza-instagram-real-time-api/
-https://github.com/weblancaster/instagram-real-time
+- http://www.bymichaellancaster.com/blog/how-i-built-lollagram-lollapalooza-instagram-real-time-api/
+- https://github.com/weblancaster/instagram-real-time

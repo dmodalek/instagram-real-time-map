@@ -69,7 +69,7 @@ io.sockets.on('connection', function (socket) {
 	Instagram.tags.recent({
 		name: 'awesome',
 		complete: function(data) {
-			socket.emit('firstShow', { firstShow: data });
+			socket.emit('initialAdd', { initialAdd: data });
 		}
 	});
 });
@@ -103,7 +103,7 @@ app.post('/callback', function(req, res) {
  * @param  {[string]} url [the url as string with the hashtag]
  */
 function sendMessage(url) {
-  io.sockets.emit('show', { show: url });
+  io.sockets.emit('add', { add: url });
 }
 
 
