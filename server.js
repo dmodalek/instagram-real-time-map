@@ -12,10 +12,6 @@ var intervalID;
  * Configuration
  */
 
-// Directories
-var pub = __dirname + '/app',
-    view = __dirname + '/app';
-
 // Instagram
 var clientID = '07ad147eeab64e43a8fde7b7d715e170',
     clientSecret = 'e03b2ce737bb4c759461ff7aca022688';
@@ -29,8 +25,8 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(app.router);
-    app.use(express.static(pub));
-    app.use(express.static(view));
+    app.use(express.static(__dirname + '/app'));
+    app.use(express.static(__dirname + '/.tmp'));
     app.use(express.errorHandler());
 });
 

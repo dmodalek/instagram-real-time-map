@@ -9,14 +9,41 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/assets/fonts/bootstr
     padding: 0.2em 0;
 }
 
-#map_canvas {
-    width: 100%;
+
+
+body, html {
+    height: 100%;
+	width: 100%;
+	overflow: hidden;
 }
 
-/* Space out content a bit */
-body {
-    padding-top: 20px;
-    padding-bottom: 20px;
+#map_canvas {
+    width: 100%;
+    height: 100%;
+    margin-top: 90px;
+}
+
+.container-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 90px;
+	z-index: 10000;
+	background-color: white;
+	border-bottom: 1px solid #ccc;
+}
+
+/* Custom page header */
+.header {
+	padding-top: 20px;
+}
+
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -27,18 +54,9 @@ body {
     padding-right: 15px;
 }
 
-/* Custom page header */
-.header {
-    border-bottom: 1px solid #e5e5e5;
-}
 
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-}
+
+
 
 /* Custom page footer */
 .footer {
@@ -74,7 +92,8 @@ body {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {
-        max-width: 730px;
+        max-width: 1024px;
+        width: auto;
     }
 
     /* Remove the padding we set earlier */

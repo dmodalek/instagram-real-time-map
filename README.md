@@ -25,3 +25,13 @@ Instagram Client Manager: https://instagram.com/developer/clients/manage
 # Real Time Example using Istagram and Node
 - http://www.bymichaellancaster.com/blog/how-i-built-lollagram-lollapalooza-instagram-real-time-api/
 - https://github.com/weblancaster/instagram-real-time
+
+
+# Yeoman Generator
+
+Based on https://github.com/yeoman/generator-backbone
+
+$ yo backbone:router <router>
+$ yo backbone:collection <collection>
+$ yo backbone:model <model>
+$ yo backbone:view <view>

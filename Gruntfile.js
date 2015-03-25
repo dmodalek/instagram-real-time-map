@@ -261,6 +261,14 @@ module.exports = function (grunt) {
         grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
     });
 
+
+
+
+
+
+
+
+
     grunt.registerTask('server', function (target) {
         grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
         grunt.task.run(['serve' + (target ? ':' + target : '')]);
@@ -268,28 +276,28 @@ module.exports = function (grunt) {
 
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
-            return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
+            // return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
         }
 
         if (target === 'test') {
             return grunt.task.run([
-                'clean:server',
+                // 'clean:server',
                 'createDefaultTemplate',
-                'jst',
+                // 'jst',
                 'sass:server',
-                'connect:test',
-                'open:test',
+                // 'connect:test',
+                // 'open:test',
                 'watch'
             ]);
         }
 
         grunt.task.run([
-            'clean:server',
+            // 'clean:server',
             'createDefaultTemplate',
-            'jst',
+            // 'jst',
             'sass:server',
-            'connect:livereload',
-            'open:server',
+            // 'connect:livereload',
+            // 'open:server',
             'watch'
         ]);
     });
@@ -297,12 +305,12 @@ module.exports = function (grunt) {
     grunt.registerTask('test', function (isConnected) {
         isConnected = Boolean(isConnected);
         var testTasks = [
-                'clean:server',
+                // 'clean:server',
                 'createDefaultTemplate',
-                'jst',
+                // 'jst',
                 'sass',
-                'connect:test',
-                'mocha',
+                // 'connect:test',
+                // 'mocha',
             ];
 
         if(!isConnected) {
@@ -317,7 +325,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'createDefaultTemplate',
-        'jst',
+        // 'jst',
         'sass:dist',
         'useminPrepare',
         'imagemin',

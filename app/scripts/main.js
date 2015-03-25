@@ -1,4 +1,4 @@
-/*global AbbInside, $*/
+/*global AbbInside, $, io, google*/
 
 
 window.AbbInside = {
@@ -27,7 +27,7 @@ $(document).ready(function () {
 	socket.on('initialAdd', function(data){
 		jQuery.each(data.initialAdd, function() {
 			self.add(this);
-		})
+		});
 	});
 
 	socket.on('add', function(data){
@@ -44,8 +44,9 @@ $(document).ready(function () {
 	});
 
 	this.add = function(instagram) {
-		if(instagram.type == 'image' && instagram.location) {
+		if(instagram.type === 'image' && instagram.location) {
 
+console.log(instagram);
 			console.log(instagram);
 			AbbInside.Collections.instagrams.add(instagram);
 		}
@@ -85,15 +86,12 @@ $(document).ready(function () {
 			   },
 			   mapTypeId: google.maps.MapTypeId.ROADMAP,
 			   streetViewControl: false,
-			   styles: [{featureType:"administrative",elementType:"labels",stylers:[{visibility:"off"}]},{featureType:"landscape.natural",stylers:[{hue:"#0000ff"},{lightness:-84},{visibility:"off"}]},{featureType:"water",stylers:[{visibility:"on"},{saturation:-61},{lightness:-63}]},{featureType:"poi",stylers:[{visibility:"off"}]},{featureType:"road",stylers:[{visibility:"off"}]},{featureType:"administrative",elementType:"labels",stylers:[{visibility:"off"}]},{featureType:"landscape",stylers:[{visibility:"off"}]},{featureType:"administrative",stylers:[{visibility:"off"}]},{},{}]
+			   styles: [{featureType:'administrative',elementType:'labels',stylers:[{visibility:'off'}]},{featureType:'landscape.natural',stylers:[{hue:'#0000ff'},{lightness:-84},{visibility:'off'}]},{featureType:'water',stylers:[{visibility:'on'},{saturation:-61},{lightness:-63}]},{featureType:'poi',stylers:[{visibility:'off'}]},{featureType:'road',stylers:[{visibility:'off'}]},{featureType:'administrative',elementType:'labels',stylers:[{visibility:'off'}]},{featureType:'landscape',stylers:[{visibility:'off'}]},{featureType:'administrative',stylers:[{visibility:'off'}]},{},{}]
 
 		   };
 
-			// Force the height of the map to fit the window
-			this.$el.height($(window).height() - $("header").height());
-
 			// Add the Google Map to the page
-			var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+			var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions); // jshint ignore:line
 
 			// Bind an event to add tweets from the collection
 
@@ -102,17 +100,26 @@ $(document).ready(function () {
 				// console.log(model);
 
 				// Stores the tweet's location
-				var position = new google.maps.LatLng( model.get('location').latitude, model.get('location').longitude);
+				var position = new google.maps.LatLng( model.get('location').latitude, model.get('location').longitude); // jshint ignore:line
 
 				// Creates the marker
-				// Uncomment the 'icon' property to enable sexy markers. Get the icon Github repo:
-				// https://github.com/nhunzaker/twittermap/tree/master/images
+
+				var image = {
+				    url: model.get('images').thumbnail.url,
+				    scaledSize: new google.maps.Size(80, 80),
+				    origin: new google.maps.Point(null,null),
+				    anchor: new google.maps.Point(0, 0)
+				   };
+
+				/* jshint ignore:start */
 				var marker = new google.maps.Marker({
 					position: position,
 					map: map,
+					icon: image,
 					title: model.get('attributes.caption'),
 					description: model.get('attributes.caption')
 				});
+				/* jshint ignore:end */
 
 				// console.log(marker);
 		   });
@@ -127,7 +134,7 @@ $(document).ready(function () {
 	});
 
 	// Create the Map view, binding it to the tweets collection
-	AbbInside.Views.twitter_map = new Map({
+	AbbInside.Views.twitterMap = new Map({
 		collection: AbbInside.Collections.instagrams
 	});
 
