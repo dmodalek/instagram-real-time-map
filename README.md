@@ -1,5 +1,7 @@
 # Instagramm Real-time Map
 
+Uses the Instagramm Real-time API, Node.js with an Express Server, Backbone JS in the Frontend.
+
 ## Run
 
 ### Start Server
@@ -27,6 +29,9 @@ Instagram Client Manager: https://instagram.com/developer/clients/manage
 ## Real Time Example using Istagram and Node
 - http://www.bymichaellancaster.com/blog/how-i-built-lollagram-lollapalooza-instagram-real-time-api/
 - https://github.com/weblancaster/instagram-real-time
+
+## Similar projects
+- http://www.jamietsao.com/blog/2011/3/23/mapstagram-mapping-instagram-photos-in-real-time.html
 
 
 ## Yeoman Generator
