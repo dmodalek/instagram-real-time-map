@@ -5,13 +5,13 @@ Uses the Instagramm Real-time API, Node.js with an Express Server, Backbone JS i
 ## Run
 
 ### Start Server
-$ node server
+    $ node server
 
 ### Start Client Asset Building
-$ grunt serve
+    $ grunt serve
 
 ### Start ngrok
-$ ngrok localhost:3700
+    $ ngrok localhost:3700
 
 Then, update the URLs in the Instagramm Client Manager with the public URL provided by ngrok i.e. http://19f17d32.ngrok.com
 
@@ -38,7 +38,7 @@ Instagram Client Manager: https://instagram.com/developer/clients/manage
 
 Based on https://github.com/yeoman/generator-backbone
 
-$ yo backbone:router <router>
-$ yo backbone:collection <collection>
-$ yo backbone:model <model>
-$ yo backbone:view <view>
+    $ yo backbone:router <router>
+    $ yo backbone:collection <collection>
+    $ yo backbone:model <model>
+    $ yo backbone:view <view>
