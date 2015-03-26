@@ -2,6 +2,8 @@
 
 Uses the Instagramm Real-time API, Node.js with an Express Server, Backbone JS in the Frontend.
 
+Demo: http://instagram-real-time-map.herokuapp.com
+
 ## Install
     $ npm install
 

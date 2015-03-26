@@ -36,6 +36,7 @@
     "npm": "2.7.3"
   },
   "scripts": {
-    "postinstall": "bower install && grunt heroku:production"
+  	"start": "node server.js",
+    "postinstall": "bower install"
   }
 }
