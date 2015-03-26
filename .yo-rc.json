@@ -1,7 +1,7 @@
 {
   "generator-backbone": {
     "appPath": "app",
-    "appName": "AbbInside",
+    "appName": "InstagramRealTimeMap",
     "coffee": false,
     "testFramework": "mocha",
     "templateFramework": "lodash",

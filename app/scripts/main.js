@@ -1,7 +1,7 @@
-/*global AbbInside, $, io, google*/
+/*global InstagramRealTimeMap, $, io, google*/
 
 
-window.AbbInside = {
+window.InstagramRealTimeMap = {
 	Models: {},
 	Collections: {},
 	Views: {},
@@ -15,7 +15,7 @@ window.AbbInside = {
 $(document).ready(function () {
 	'use strict';
 
-	AbbInside.init();
+	InstagramRealTimeMap.init();
 
 	var self = this;
 
@@ -48,7 +48,7 @@ $(document).ready(function () {
 
 console.log(instagram);
 			console.log(instagram);
-			AbbInside.Collections.instagrams.add(instagram);
+			InstagramRealTimeMap.Collections.instagrams.add(instagram);
 		}
 	};
 
@@ -129,13 +129,13 @@ console.log(instagram);
 	//
 	// Initialize
 
-	AbbInside.Collections.instagrams = new Instagrams({
+	InstagramRealTimeMap.Collections.instagrams = new Instagrams({
 	   model: Instagram
 	});
 
 	// Create the Map view, binding it to the tweets collection
-	AbbInside.Views.twitterMap = new Map({
-		collection: AbbInside.Collections.instagrams
+	InstagramRealTimeMap.Views.twitterMap = new Map({
+		collection: InstagramRealTimeMap.Collections.instagrams
 	});
 
  });
