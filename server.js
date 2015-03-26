@@ -4,7 +4,7 @@ var express = require("express");
 var app = express();
 var io = require('socket.io').listen(app.listen(port));
 var Instagram = require('instagram-node-lib');
-var nodeEnv = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var port = process.env.PORT || 5000;
 
 // Replace the ngrok url with your local ngrok URL, see README.md

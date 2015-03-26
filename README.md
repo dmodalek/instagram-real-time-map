@@ -62,7 +62,6 @@ Based on https://github.com/yeoman/generator-backbone
 
 - Heroku installs Grunt CLI als local module. Therefore we have to call Grunt with a relative path, see package.json
 
-
 ### Set the following config vars
 
     NODE_ENV: production
