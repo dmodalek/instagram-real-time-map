@@ -2,11 +2,13 @@
 
 var express = require("express");
 var app = express();
-var env = app.get('env');
-var port = process.env.PORT || 5000;
 var io = require('socket.io').listen(app.listen(port));
 var Instagram = require('instagram-node-lib');
+var env = app.get('env');
+var port = process.env.PORT || 5000;
 
+// Replace the ngrok url with your local ngrok URL, see README.md
+var url = (env === 'development') ? 'http://localhost:' + port : 'https://instagram-real-time-map.herokuapp.com';
 
 /**
  * Configuration
@@ -16,7 +18,7 @@ var Instagram = require('instagram-node-lib');
 var clientID = '07ad147eeab64e43a8fde7b7d715e170',
     clientSecret = 'e03b2ce737bb4c759461ff7aca022688';
 
-var url = (env === 'development') ? 'http://localhost:'+port : 'https://instagram-real-time-map.herokuapp.com';
+
 
 /**
  * Server
@@ -38,9 +40,6 @@ app.configure(function(){
 });
 
 console.log("Listening on " + url);
-
-
-
 
 
 /**

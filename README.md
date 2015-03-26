@@ -4,7 +4,7 @@ Uses the Instagramm Real-time API, Node.js with an Express Server, Backbone JS i
 
 Demo: http://instagram-real-time-map.herokuapp.com
 
-## Install
+## Installation (Local)
 
     $ npm install
 
@@ -19,7 +19,7 @@ Demo: http://instagram-real-time-map.herokuapp.com
 ### Start ngrok
     $ ngrok localhost:3700
 
-Then, update the URLs in the Instagramm Client Manager with the public URL provided by ngrok i.e. http://19f17d32.ngrok.com
+Then, update the URLs in the __server.js__ file and in online in the __Instagramm Client Manager__ with the public URL provided by ngrok i.e. http://19f17d32.ngrok.com
 
 Instagram Client Manager: https://instagram.com/developer/clients/manage
 
@@ -55,13 +55,16 @@ Based on https://github.com/yeoman/generator-backbone
 ### Process
 
 1. Heroku runs __npm install__ which installs the node modules. 
-2. After that, the __postinstall__ hook is called, which installs bower. 
-3. Then, the Heroku Grunt Buildpack runs the __heroku:production__ Grunt task.
+2. After that, the __postinstall__ from the package.json file hook is called, which installs bower und runs grunt. 
+
+### Hints
+
+- Heroku installs Grunt CLI als local module. Therefore we have to call Grunt with a relative path, see package.json
+
 
 ### Set the following config vars
 
     NODE_ENV: production
-    BUILDPACK_URL: https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git
 
 ### Debugging
 
