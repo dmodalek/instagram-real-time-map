@@ -17,8 +17,7 @@
     "strict": true,
     "jquery": true,
     "globals": {
-        "AbbInside": true,
-        "abbinside": true,
+        "InstagramRealTimeMap": true,
         "_": false,
         "Backbone": false,
         "JST": false,
