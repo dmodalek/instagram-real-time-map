@@ -313,7 +313,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('build', [
+    grunt.registerTask('heroku', [
         'clean:dist',
         'createDefaultTemplate',
         // 'jst',
@@ -335,7 +335,4 @@ module.exports = function (grunt) {
         'build'
     ]);
 
-     grunt.registerTask('dominic', function() {
-     	console.log(grunt);
-     });
 };
