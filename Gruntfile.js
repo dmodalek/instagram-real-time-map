@@ -322,7 +322,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('build', [
+    grunt.registerTask('heroku:production', [
         'clean:dist',
         'createDefaultTemplate',
         // 'jst',
