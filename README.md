@@ -47,3 +47,17 @@ Based on https://github.com/yeoman/generator-backbone
     $ yo backbone:collection <collection>
     $ yo backbone:model <model>
     $ yo backbone:view <view>
+
+
+## Heroku Deployment
+
+### Process
+
+1. Heroku runs __npm install__ which installs the node modules. 
+2. After that, the __postinstall__ hook is called, which installs bower. 
+3. Then, the Heroku Grunt Buildpack runs the __heroku:production__ Grunt task.
+
+### Set the following config vars
+
+    NODE_ENV: production
+    BUILDPACK_URL: https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git
