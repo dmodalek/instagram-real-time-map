@@ -5,6 +5,7 @@ Uses the Instagramm Real-time API, Node.js with an Express Server, Backbone JS i
 Demo: http://instagram-real-time-map.herokuapp.com
 
 ## Install
+
     $ npm install
 
 ## Run
@@ -61,3 +62,7 @@ Based on https://github.com/yeoman/generator-backbone
 
     NODE_ENV: production
     BUILDPACK_URL: https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git
+
+### Debugging
+
+     $ heroku logs --app instagram-real-time-map
