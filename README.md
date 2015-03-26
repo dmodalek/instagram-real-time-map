@@ -55,7 +55,8 @@ Based on https://github.com/yeoman/generator-backbone
 ### Process
 
 1. Heroku runs __npm install__ which installs the node modules. 
-2. After that, the __postinstall__ from the package.json file hook is called, which installs bower und runs grunt. 
+2. After that, the __postinstall__ from the package.json file hook is called, which installs bower components.
+3. A custom Heroku Build Pack is run in order to run Grunt
 
 ### Hints
 
@@ -65,6 +66,7 @@ Based on https://github.com/yeoman/generator-backbone
 ### Set the following config vars
 
     NODE_ENV: production
+    BUILDPACK_URL: https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git
 
 ### Debugging
 

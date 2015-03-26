@@ -4,11 +4,13 @@ var express = require("express");
 var app = express();
 var io = require('socket.io').listen(app.listen(port));
 var Instagram = require('instagram-node-lib');
-var env = app.get('env');
+var nodeEnv = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var port = process.env.PORT || 5000;
 
 // Replace the ngrok url with your local ngrok URL, see README.md
 var url = (env === 'development') ? 'http://localhost:' + port : 'https://instagram-real-time-map.herokuapp.com';
+
+console.log(process.env.NODE_ENV);
 
 /**
  * Configuration

@@ -257,26 +257,17 @@ module.exports = function (grunt) {
         }
     });
 
+
+	///////////////////////////////////////////////////////////
+
+
     grunt.registerTask('createDefaultTemplate', function () {
         grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
     });
 
-
-
-
-
-
-
-
-
-    grunt.registerTask('server', function (target) {
-        grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-        grunt.task.run(['serve' + (target ? ':' + target : '')]);
-    });
-
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
-            // return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
+            return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
         }
 
         if (target === 'test') {
@@ -322,7 +313,7 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.registerTask('heroku', [
+    grunt.registerTask('build', [
         'clean:dist',
         'createDefaultTemplate',
         // 'jst',
@@ -343,4 +334,8 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+
+     grunt.registerTask('dominic', function() {
+     	console.log(grunt);
+     });
 };
