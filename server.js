@@ -2,6 +2,7 @@
 
 var express = require("express");
 var app = express();
+var env = app.get('env');
 var port = process.env.PORT || 5000;
 var io = require('socket.io').listen(app.listen(port));
 var Instagram = require('instagram-node-lib');
@@ -15,6 +16,7 @@ var Instagram = require('instagram-node-lib');
 var clientID = '07ad147eeab64e43a8fde7b7d715e170',
     clientSecret = 'e03b2ce737bb4c759461ff7aca022688';
 
+var url = (env === 'development') ? 'http://localhost:'+port : 'https://instagram-real-time-map.herokuapp.com';
 
 /**
  * Server
@@ -26,7 +28,7 @@ app.configure(function(){
     app.use(app.router);
     app.use(express.errorHandler());
 
-    if ('development' === app.get('env')) {
+    if ('development' === env) {
     	app.use(express.static(__dirname + '/app'));
     	app.use(express.static(__dirname + '/.tmp'));
     } else {
@@ -35,7 +37,7 @@ app.configure(function(){
 
 });
 
-console.log("Listening on port " + port);
+console.log("Listening on " + url);
 
 
 
@@ -115,8 +117,8 @@ function sendMessage(url) {
  */
 Instagram.set('client_id', clientID);
 Instagram.set('client_secret', clientSecret);
-Instagram.set('callback_url', 'http://localhost:3700/callback');
-Instagram.set('redirect_uri', 'http://localhost:3700');
+Instagram.set('callback_url', url + '/callback');
+Instagram.set('redirect_uri', url);
 Instagram.set('maxSockets', 10);
 
 /**
@@ -128,7 +130,7 @@ Instagram.subscriptions.subscribe({
   object: 'tag',
   object_id: 'awesome',
   aspect: 'media',
-  callback_url: 'http://19f17d32.ngrok.com/callback',
+  callback_url: url + '/callback',
   type: 'subscription',
   id: '#'
 });
@@ -142,7 +144,7 @@ Instagram.subscriptions.subscribe({
   object: 'tag',
   object_id: 'awesome',
   aspect: 'media',
-  callback_url: 'http://19f17d32.ngrok.com/callback',
+  callback_url: url + '/callback',
   type: 'subscription',
   id: '#'
 });
@@ -156,12 +158,8 @@ Instagram.subscriptions.subscribe({
   object: 'tag',
   object_id: 'awesome',
   aspect: 'media',
-  callback_url: 'http://19f17d32.ngrok.com/callback',
+  callback_url: url +'/callback',
   type: 'subscription',
   id: '#'
 });
-
-// if you want to unsubscribe to any hashtag you subscribe
-// just need to pass the ID Instagram send as response to you
-Instagram.subscriptions.unsubscribe({ id: '3668016' });
 
