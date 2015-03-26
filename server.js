@@ -24,10 +24,15 @@ app.configure(function(){
     app.use(express.bodyParser());
     app.use(express.methodOverride());
     app.use(app.router);
-    app.use(express.static(__dirname + '/app'));
-    // app.use(express.static(__dirname + '/dist'));
-    app.use(express.static(__dirname + '/.tmp'));
     app.use(express.errorHandler());
+
+    if ('development' === app.get('env')) {
+    	app.use(express.static(__dirname + '/app'));
+    	app.use(express.static(__dirname + '/.tmp'));
+    } else {
+    	app.use(express.static(__dirname + '/dist'));
+    }
+
 });
 
 console.log("Listening on port " + port);

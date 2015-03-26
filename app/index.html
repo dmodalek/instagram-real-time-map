@@ -12,10 +12,6 @@
         <!-- build:js scripts/vendor/modernizr.js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <!-- endbuild -->
-
-        <script src="scripts/vendor/socket.io.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
-
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -46,11 +42,16 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
+         <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+
         <!-- build:js scripts/vendor.js -->
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/lodash/dist/lodash.compat.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
         <!-- endbuild -->
+
+		<!-- Socket Client File provided automatically by the server !-->
+        <script src="/socket.io/socket.io.js"></script>
 
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix.js"></script>
@@ -70,7 +71,6 @@
         <!-- build:js({.tmp,app}) scripts/main.js -->
         <script src="scripts/main.js"></script>
         <script src="scripts/templates.js"></script>
-        <script src="scripts/routes/dominic.js"></script>
         <!-- endbuild -->
 </body>
 </html>
