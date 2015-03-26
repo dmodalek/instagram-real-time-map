@@ -28,12 +28,12 @@ app.configure(function(){
     app.use(app.router);
     app.use(express.errorHandler());
 
-    if ('development' === env) {
+    // if ('development' === env) {
     	app.use(express.static(__dirname + '/app'));
     	app.use(express.static(__dirname + '/.tmp'));
-    } else {
-    	app.use(express.static(__dirname + '/dist'));
-    }
+    // } else {
+    	// app.use(express.static(__dirname + '/dist'));
+    // }
 
 });
 
