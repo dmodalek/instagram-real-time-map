@@ -34,10 +34,5 @@
   "engines": {
     "node": "0.10.24",
     "npm": "2.7.3"
-  },
-  "scripts": {
-    "postinstall": "bower install",
-    "build": "grunt heroku",
-  	"start": "node server.js"
   }
 }
