@@ -1,11 +1,10 @@
+"use strict";
+
 var express = require("express");
 var app = express();
 var port = process.env.PORT || 3700;
 var io = require('socket.io').listen(app.listen(port));
 var Instagram = require('instagram-node-lib');
-var http = require('http');
-var request = ('request');
-var intervalID;
 
 
 /**
@@ -26,7 +25,7 @@ app.configure(function(){
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(express.static(__dirname + '/app'));
-    app.use(express.static(__dirname + '/dist'));
+    // app.use(express.static(__dirname + '/dist'));
     app.use(express.static(__dirname + '/.tmp'));
     app.use(express.errorHandler());
 });
