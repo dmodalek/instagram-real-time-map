@@ -45,7 +45,6 @@ console.log("Listening on " + config.siteURL);
 // Instagram
 
 // Set the configuration
-
 Instagram.set('client_id', config.instagramClientID);
 Instagram.set('client_secret', config.instagramClientSecret);
 Instagram.set('callback_url', config.siteURL + '/callback');
@@ -53,7 +52,6 @@ Instagram.set('redirect_uri', config.siteURL);
 Instagram.set('maxSockets', 10);
 
 // Subscribe to Instagram Real Time API with Hashtag
-
 Instagram.subscriptions.subscribe({
 	object: 'tag',
 	object_id: config.hashtag,
@@ -80,7 +78,6 @@ Instagram.subscriptions.subscribe({
 // });
 
 // First connection
-
 io.sockets.on('connection', function (socket) {
 	console.log("Socket IO: Connected. Waiting for Handshake...");
 	Instagram.tags.recent({
@@ -92,14 +89,12 @@ io.sockets.on('connection', function (socket) {
 });
 
 // Handshake
-
 app.get('/callback', function(req, res){
 	console.log("Socket IO: Handshake");
 	var handshake =  Instagram.subscriptions.handshake(req, res);
 });
 
 // New Instagrams
-
 app.post('/callback', function(req, res) {
 	console.log("Socket IO: Send Instagrams to Client");
 	var data = req.body;

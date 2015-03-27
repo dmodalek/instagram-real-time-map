@@ -10,8 +10,6 @@ $icon-font-path: "/bower_components/bootstrap-sass-official/assets/fonts/bootstr
 	padding: 0.2em 0;
 }
 
-
-
 body, html {
 	height: 100%;
 	width: 100%;
@@ -34,6 +32,84 @@ body, html {
 	background-color: white;
 	border-bottom: 1px solid #ccc;
 }
+
+ /*
+  * Leaflet
+  */
+
+// Marker & Cluster
+.leaflet-marker-icon,
+.leaflet-cluster img {
+	border: 2px solid #fff;
+	box-shadow: 0 0 6px #999;
+	width: 80px;
+	height: 80px;
+}
+
+// Smooth Animate Cluster
+.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+	transition: transform 0.3s ease-out, opacity 0.3s ease-in;
+}
+
+ // Cluster Count
+ .leaflet-cluster b {
+ 	position: absolute;
+ 	top: -6px;
+ 	left: 70px;
+ 	background-color: #fff;
+ 	border-radius: 8px;
+ 	height: 18px;
+ 	min-width: 18px;
+ 	line-height: 18px;
+ 	text-align: center;
+ 	box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.2);
+ }
+ .leaflet-retina .leaflet-cluster-instagram img {
+ 	width: 80px;
+ 	height: 80px;
+ }
+ .leaflet-retina .leaflet-cluster-instagram b {
+ 	left: 68px;
+ }
+
+ // Popup
+ .leaflet-popup-instagram a.leaflet-popup-close-button {
+ 	top: 0px;
+ 	right: -13px;
+ 	background-color: #fff;
+ 	padding: 5px;
+ 	border-radius: 12px;
+ 	width: 15px;
+ 	height: 15px;
+ 	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+ 	color: #555;
+ }
+ .leaflet-popup-instagram a.leaflet-popup-close-button:hover {
+ 	color: #333;
+ 	background-color: #eee;
+ }
+ .leaflet-popup-instagram .leaflet-popup-content-wrapper {
+ 	padding: 0 0 1px 0;
+ 	border-radius: 6px;
+ }
+ .leaflet-popup-instagram .leaflet-popup-content {
+ 	margin: 13px 0;
+ }
+ .leaflet-popup-instagram img,
+ .leaflet-popup-instagram video {
+ 	width: 301px;
+ 	height: 301px;
+ 	border-radius: 4px 4px 0 0;
+ }
+ .leaflet-popup-instagram p {
+ 	margin: 5px 10px 0 10px;
+ }
+
+
+
+
+
+
 
 /* Custom page header */
 .header {

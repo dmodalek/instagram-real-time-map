@@ -14,11 +14,9 @@ window.InstagramRealTimeMap = {
 		console.log('Init InstagramRealTimeMap');
 
 		// Init Socket.io
-
 		initSocketIO();
 
 		// Init Collection
-
 		InstagramRealTimeMap.Collections.instagrams = new Instagrams({
 			model: Instagram
 		});
@@ -46,11 +44,11 @@ var Map = Backbone.View.extend({
 
 	initialize: function() {
 
-		// create a map in the "map" div, set the view to a given place and zoom
+		// Create map
 		var map = L.map('map_canvas', {
 			center: [46.845164, 8.536377],
 		    // minZoom: 8,
-		    zoom: 8,
+		    zoom: 2,
 		    // maxZoom: 12,
 		    // maxBounds: [
 				// [47.665387, 5.592041],
@@ -58,41 +56,47 @@ var Map = Backbone.View.extend({
 			// ]
 		});
 
+		// Basic Map Layer
 		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
-		var markers = new L.MarkerClusterGroup({
+		// Define Cluster
+		var markerClusterGroup = new L.MarkerClusterGroup({
 			showCoverageOnHover: false,
+			animateAddingMarkers: false,
 
 			iconCreateFunction: function(cluster) {
 				var marker = cluster.getAllChildMarkers()[0];
 				var iconUrl = marker.image;
 
 				return new L.DivIcon({
-					className: 'leaflet-cluster-instagram',
+					className: 'leaflet-cluster',
 					html: '<img src="' + iconUrl + '"><b>' + cluster.getChildCount() + '</b>'
 				});
 			}
-
-		    // animateAddingMarkers: maybe awesome
-		    // spiderfyDistanceMultiplier: useful when using big icons see https://github.com/Leaflet/Leaflet.markercluster
 		});
+
+		map.addLayer(markerClusterGroup);
+
+
+		//
+		// Update View on Add Event
 
 		this.collection.bind('add', function(model) {
 
-			var LeafIcon = L.Icon.extend({
-				options: {
-					iconSize:     [80, 80]
-				}
-			});
-
-			var marker = new L.Marker([model.get('location').latitude, model.get('location').longitude], { icon:  new LeafIcon({iconUrl: model.get('images').thumbnail.url})});
-
+			var marker = new L.Marker([model.get('location').latitude, model.get('location').longitude], { icon:  new L.Icon({iconUrl: model.get('images').thumbnail.url})});
 			marker.image = model.get('images').thumbnail.url;
 
-			markers.addLayer(marker);
-			map.addLayer(markers);
+			// Pre-Load image
+			$.ajax({
+				url: marker.image,
+				type: 'GET',
+				crossDomain: true
+			}).done(function (data) {
+				console.log('Pre-Loaded');
+				markerClusterGroup.addLayer(marker);
+			});
 		});
 	}
 });
