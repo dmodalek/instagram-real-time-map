@@ -117,9 +117,8 @@ window.InstagramRealTimeMap = {
 		// Initial add event
 
 		socket.on('initialAdd', function(data){
-			jQuery.each(data.initialAdd, function() {
-				self.add(this);
-			});
+			console.log("Add initial Instagrams");
+			self.addToCollection(data.initialAdd);
 		});
 
 		//
@@ -134,17 +133,26 @@ window.InstagramRealTimeMap = {
 				dataType: 'jsonp'
 			}).done(function (data) {
 				var current = data.data[0];
-				self.add(current);
+				console.log("Add new Instagrams");
+				self.addToCollection(current);
 			});
 		});
 
-		// Helper Function: add images to Collection
-		this.add = function(instagram) {
-			if(instagram.type === 'image' && instagram.location) {
-				InstagramRealTimeMap.Collections.instagrams.add(instagram);
+		// Helper Function: filter instagrams
+		self.filterInstagrams = function(instagrams) {
+
+			// Make array if single instagram
+			if (_.isArray(instagrams) == false) {
+				instagrams = new Array(instagrams);
 			}
+
+			return _.filter(instagrams, function(instagram){ return instagram.type === 'image' && instagram.location });
 		};
 
+		// Helper Function: add instagrams to Collection
+		self.addToCollection = function(instagrams) {
+			InstagramRealTimeMap.Collections.instagrams.add(this.filterInstagrams(instagrams));
+		};
 	}
 };
 
