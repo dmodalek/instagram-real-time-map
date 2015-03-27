@@ -11,150 +11,145 @@ window.InstagramRealTimeMap = {
 	init: function () {
 		'use strict';
 
-		console.log('Hello from Backbone!');
+		console.log('Init InstagramRealTimeMap');
 
-		var self = this;
+		// Init Socket.io
 
-		self.initSocketIO();
+		initSocketIO();
 
-		//
-		// Models
-
-		var Instagram = Backbone.Model;
-
-
-		//
-		// Collections
-
-		var Instagrams = Backbone.Collection.extend();
-
-
-			// View
-
-			var Map = Backbone.View.extend({
-
-				el: $('#map_canvas'),
-
-				initialize: function() {
-
-					// create a map in the "map" div, set the view to a given place and zoom
-					var map = L.map('map_canvas', {
-						center: [46.845164, 8.536377],
-					    // minZoom: 8,
-					    zoom: 8,
-					    // maxZoom: 12,
-					    // maxBounds: [
-		    				// [47.665387, 5.592041],
-		    				// [45.813486, 10.832520]
-						// ]
-					});
-
-					L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-						attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-					}).addTo(map);
-
-					var markers = new L.MarkerClusterGroup({
-						showCoverageOnHover: false,
-
-						iconCreateFunction: function(cluster) {
-							var marker = cluster.getAllChildMarkers()[0];
-							var iconUrl = marker.image;
-
-							return new L.DivIcon({
-								className: 'leaflet-cluster-instagram',
-								html: '<img src="' + iconUrl + '"><b>' + cluster.getChildCount() + '</b>'
-							});
-						}
-
-					    // animateAddingMarkers: maybe awesome
-					    // spiderfyDistanceMultiplier: useful when using big icons see https://github.com/Leaflet/Leaflet.markercluster
-					});
-
-					this.collection.bind('add', function(model) {
-
-						var LeafIcon = L.Icon.extend({
-							options: {
-								iconSize:     [80, 80]
-							}
-						});
-
-						var marker = new L.Marker([model.get('location').latitude, model.get('location').longitude], { icon:  new LeafIcon({iconUrl: model.get('images').thumbnail.url})});
-
-						marker.image = model.get('images').thumbnail.url;
-
-						markers.addLayer(marker);
-						map.addLayer(markers);
-					});
-				}
-			});
-
-		//
-		// Initialize
+		// Init Collection
 
 		InstagramRealTimeMap.Collections.instagrams = new Instagrams({
 			model: Instagram
 		});
 
-		// Create the Map view, binding it to the tweets collection
-		InstagramRealTimeMap.Views.twitterMap = new Map({
+		// Init View
+		InstagramRealTimeMap.Views.map = new Map({
 			collection: InstagramRealTimeMap.Collections.instagrams
 		});
-
 	},
+};
 
+//
+// Backbone
 
-	//
-	// Socket IO Communication
+// Init Model
+var Instagram = Backbone.Model;
 
-	// TODO: Implement BulkAdd with Layers, see https://github.com/Leaflet/Leaflet.markercluster
+// Init Collections
+var Instagrams = Backbone.Collection.extend();
 
-	initSocketIO: function() {
+// Init View
+var Map = Backbone.View.extend({
 
-		var self = this,
-			socket = io.connect();
+	el: $('#map_canvas'),
 
-		//
-		// Initial add event
+	initialize: function() {
 
-		socket.on('initialAdd', function(data){
-			console.log("Add initial Instagrams");
-			self.addToCollection(data.initialAdd);
+		// create a map in the "map" div, set the view to a given place and zoom
+		var map = L.map('map_canvas', {
+			center: [46.845164, 8.536377],
+		    // minZoom: 8,
+		    zoom: 8,
+		    // maxZoom: 12,
+		    // maxBounds: [
+				// [47.665387, 5.592041],
+				// [45.813486, 10.832520]
+			// ]
 		});
 
-		//
-		// Add event
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
 
-		socket.on('add', function(data){
-			var url = data.add;
-			$.ajax({
-				url: url,
-				type: 'POST',
-				crossDomain: true,
-				dataType: 'jsonp'
-			}).done(function (data) {
-				var current = data.data[0];
-				console.log("Add new Instagrams");
-				self.addToCollection(current);
-			});
-		});
+		var markers = new L.MarkerClusterGroup({
+			showCoverageOnHover: false,
 
-		// Helper Function: filter instagrams
-		self.filterInstagrams = function(instagrams) {
+			iconCreateFunction: function(cluster) {
+				var marker = cluster.getAllChildMarkers()[0];
+				var iconUrl = marker.image;
 
-			// Make array if single instagram
-			if (_.isArray(instagrams) == false) {
-				instagrams = new Array(instagrams);
+				return new L.DivIcon({
+					className: 'leaflet-cluster-instagram',
+					html: '<img src="' + iconUrl + '"><b>' + cluster.getChildCount() + '</b>'
+				});
 			}
 
-			return _.filter(instagrams, function(instagram){ return instagram.type === 'image' && instagram.location });
-		};
+		    // animateAddingMarkers: maybe awesome
+		    // spiderfyDistanceMultiplier: useful when using big icons see https://github.com/Leaflet/Leaflet.markercluster
+		});
 
-		// Helper Function: add instagrams to Collection
-		self.addToCollection = function(instagrams) {
-			InstagramRealTimeMap.Collections.instagrams.add(this.filterInstagrams(instagrams));
-		};
+		this.collection.bind('add', function(model) {
+
+			var LeafIcon = L.Icon.extend({
+				options: {
+					iconSize:     [80, 80]
+				}
+			});
+
+			var marker = new L.Marker([model.get('location').latitude, model.get('location').longitude], { icon:  new LeafIcon({iconUrl: model.get('images').thumbnail.url})});
+
+			marker.image = model.get('images').thumbnail.url;
+
+			markers.addLayer(marker);
+			map.addLayer(markers);
+		});
 	}
-};
+});
+
+
+//
+// Socket IO Communication
+
+// TODO: Implement BulkAdd with Layers, see https://github.com/Leaflet/Leaflet.markercluster
+
+var initSocketIO = function() {
+
+	var self = this,
+		socket = io.connect();
+
+	//
+	// Initial add event
+
+	socket.on('initialAdd', function(data){
+		console.log("Add initial Instagrams");
+		self.addToCollection(data.initialAdd);
+	});
+
+	//
+	// Add event
+
+	socket.on('add', function(data){
+		var url = data.add;
+		$.ajax({
+			url: url,
+			type: 'POST',
+			crossDomain: true,
+			dataType: 'jsonp'
+		}).done(function (data) {
+			var current = data.data[0];
+			console.log("Add new Instagrams");
+			self.addToCollection(current);
+		});
+	});
+
+	// Helper Function: filter instagrams
+	self.filterInstagrams = function(instagrams) {
+
+		// Make array if single instagram
+		if (_.isArray(instagrams) == false) {
+			instagrams = new Array(instagrams);
+		}
+
+		return _.filter(instagrams, function(instagram){ return instagram.type === 'image' && instagram.location });
+	};
+
+	// Helper Function: add instagrams to Collection
+	self.addToCollection = function(instagrams) {
+		InstagramRealTimeMap.Collections.instagrams.add(this.filterInstagrams(instagrams));
+	};
+}
+
 
 
 //
