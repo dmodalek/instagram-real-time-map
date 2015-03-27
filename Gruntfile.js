@@ -156,12 +156,6 @@ module.exports = function (grunt) {
             }]
           }
         },
-        // not enabled since usemin task does concat and uglify
-        // check index.html to edit your build targets
-        // enable this task if you prefer defining your build targets here
-        /*uglify: {
-            dist: {}
-        },*/
         useminPrepare: {
             html: '<%= yeoman.app %>/index.html',
             options: {
@@ -332,7 +326,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [
         'jshint',
         'test',
-        'build'
+        'heroku:production'
     ]);
 
 };

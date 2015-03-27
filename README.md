@@ -39,6 +39,11 @@ Instagram Client Manager: https://instagram.com/developer/clients/manage
 ## Similar projects
 - http://www.jamietsao.com/blog/2011/3/23/mapstagram-mapping-instagram-photos-in-real-time.html
 
+## Leaflet Project and Plugins
+- Leaflet: http://leafletjs.com/
+- Cluster Plugin: https://github.com/Leaflet/Leaflet.markercluster
+- Instagram and Cluster Plugin: http://blog.thematicmapping.org/2014/06/showing-instagram-photos-and-videos-on.html
+
 
 ## Yeoman Generator
 
