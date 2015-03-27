@@ -17,7 +17,7 @@ config = {
 	instagramClientID: '07ad147eeab64e43a8fde7b7d715e170',
 	instagramClientSecret: 'e03b2ce737bb4c759461ff7aca022688',
 	hashtag: 'awesome',
-	siteURL: (env === 'development') ? 'http://4f122803.ngrok.com' : 'https://instagram-real-time-map.herokuapp.com'
+	siteURL: (env === 'development') ? '4f122803.ngrok.com' : 'instagram-real-time-map.herokuapp.com'
 };
 
 //
