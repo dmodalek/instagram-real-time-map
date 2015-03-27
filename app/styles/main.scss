@@ -19,7 +19,6 @@ body, html {
 #map_canvas {
 	width: 100%;
 	height: 100%;
-	margin-top: 90px;
 }
 
 .container-header {
@@ -169,7 +168,6 @@ body, html {
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
 	.container {
-		max-width: 1024px;
 		width: auto;
 	}
 

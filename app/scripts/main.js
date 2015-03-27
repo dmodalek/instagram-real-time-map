@@ -47,13 +47,14 @@ var Map = Backbone.View.extend({
 		// Create map
 		var map = L.map('map_canvas', {
 			center: [46.845164, 8.536377],
-		    // minZoom: 8,
+			zoom: 4
+		    /*minZoom: 8,
 		    zoom: 2,
-		    // maxZoom: 12,
-		    // maxBounds: [
-				// [47.665387, 5.592041],
-				// [45.813486, 10.832520]
-			// ]
+		    maxZoom: 12,
+		    maxBounds: [
+				[47.665387, 5.592041],
+				[45.813486, 10.832520]
+			]*/
 		});
 
 		// Basic Map Layer
