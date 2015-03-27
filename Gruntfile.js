@@ -211,6 +211,17 @@ module.exports = function (grunt) {
             }
         },
         copy: {
+        	// Copies CSS Files and creates them as SCSS, so that SCSS can import them
+        	cssAsScss: {
+        		files: [{
+        		    expand: true,
+        		    cwd: 'app/bower_components',
+        		    src: ['**/*.css', '!**/*.min.css'],
+        		    dest: 'app/bower_components',
+        		    filter: 'isFile',
+        		    ext: ".scss"
+        		}]
+        	},
             dist: {
                 files: [{
                     expand: true,
