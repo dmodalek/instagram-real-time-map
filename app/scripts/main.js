@@ -78,6 +78,13 @@ var Map = Backbone.View.extend({
 			}
 		});
 
+		// Cluster Click
+		markerClusterGroup.on('click', function (ev) {
+			var image = ev.layer;
+			var imageTemplate = '<a href="{link}" target="_blank" title="View on Instagram"><img src="{image_big}"/></a><p>{caption}</a></p>';
+			ev.layer.bindPopup(L.Util.template(imageTemplate, image), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -420)}).openPopup();
+		});
+
 		map.addLayer(markerClusterGroup);
 
 
@@ -87,7 +94,10 @@ var Map = Backbone.View.extend({
 		this.collection.bind('add', function(model) {
 
 			var marker = new L.Marker([model.get('location').latitude, model.get('location').longitude], { icon:  new L.Icon({iconUrl: model.get('images').thumbnail.url})});
+			marker.caption = model.get('caption').text;
+			marker.link = model.get('link');
 			marker.image = model.get('images').thumbnail.url;
+			marker.image_big = model.get('images').standard_resolution.url;
 
 			// Pre-Load image
 			$.ajax({
@@ -101,7 +111,6 @@ var Map = Backbone.View.extend({
 		});
 	}
 });
-
 
 //
 // Socket IO Communication

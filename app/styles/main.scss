@@ -63,6 +63,11 @@ body, html {
  	text-align: center;
  	box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.2);
  }
+
+.leaflet-popup {
+	position: relative;
+}
+
  .leaflet-retina .leaflet-cluster-instagram img {
  	width: 80px;
  	height: 80px;
@@ -73,14 +78,16 @@ body, html {
 
  // Popup
  .leaflet-popup-instagram a.leaflet-popup-close-button {
- 	top: 0px;
- 	right: -13px;
+ 	position: absolute;
+ 	top: -12px;
+ 	right: -12px;
+ 	left: auto;
  	background-color: #fff;
- 	padding: 5px;
- 	border-radius: 12px;
- 	width: 15px;
- 	height: 15px;
- 	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+ 	padding: 0;
+ 	border-radius: 30px;
+ 	width: 30px;
+ 	height: 30px;
+ 	line-height: 30px;
  	color: #555;
  }
  .leaflet-popup-instagram a.leaflet-popup-close-button:hover {
@@ -102,6 +109,7 @@ body, html {
  }
  .leaflet-popup-instagram p {
  	margin: 5px 10px 0 10px;
+ 	overflow: hidden;
  }
 
 
