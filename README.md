@@ -6,7 +6,14 @@ Demo: http://instagram-real-time-map.herokuapp.com
 
 ## Installation (Local)
 
+Install node modules
+
     $ npm install
+
+Create .env file and set values
+
+    $ mv .env-sample .env
+
 
 ## Run
 
@@ -67,9 +74,10 @@ Based on https://github.com/yeoman/generator-backbone
 
 - Heroku installs Grunt CLI als local module. Therefore we have to call Grunt with a relative path, see package.json
 
-### Set the following config vars
+### Set the Env vars
 
-    NODE_ENV: production
+Create and set the same Env variables that are in your local .env file. Plus, add the following Env var:
+
     BUILDPACK_URL: https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git
 
 ### Debugging

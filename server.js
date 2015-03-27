@@ -1,24 +1,17 @@
 "use strict";
 
-var config = {};
-
 var Instagram = require('instagram-node-lib');
 var express = require("express");
+var env = require('dotenv').load();
 
 var app = express();
 var port = process.env.PORT || 5000;
 var io = require('socket.io').listen(app.listen(port));
-var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 //
-// Config
+// Hashtag
 
-config = {
-	instagramClientID: '07ad147eeab64e43a8fde7b7d715e170',
-	instagramClientSecret: 'e03b2ce737bb4c759461ff7aca022688',
-	hashtag: 'awesome',
-	siteURL: (env === 'development') ? '4f122803.ngrok.com' : 'instagram-real-time-map.herokuapp.com'
-};
+var hashtag = 'awesome';
 
 //
 // Express
@@ -38,25 +31,25 @@ app.configure(function(){
 
 });
 
-console.log("Listening on " + config.siteURL);
+console.log("Listening on " + process.env.SITE_URL);
 
 
 //
 // Instagram
 
 // Set the configuration
-Instagram.set('client_id', config.instagramClientID);
-Instagram.set('client_secret', config.instagramClientSecret);
-Instagram.set('callback_url', config.siteURL + '/callback');
-Instagram.set('redirect_uri', config.siteURL);
+Instagram.set('client_id', process.env.INSTAGAM_CLIENT_ID);
+Instagram.set('client_secret', process.env.INSTAGAM_CLIENT_SECRET);
+Instagram.set('callback_url', process.env.SITE_URL + '/callback');
+Instagram.set('redirect_uri', process.env.SITE_URL);
 Instagram.set('maxSockets', 10);
 
 // Subscribe to Instagram Real Time API with Hashtag
 Instagram.subscriptions.subscribe({
 	object: 'tag',
-	object_id: config.hashtag,
+	object_id: hashtag,
 	aspect: 'media',
-	callback_url: config.siteURL + '/callback',
+	callback_url: process.env.SITE_URL + '/callback',
 	type: 'subscription',
 	id: '#'
 });
@@ -81,7 +74,7 @@ Instagram.subscriptions.subscribe({
 io.sockets.on('connection', function (socket) {
 	console.log("Socket IO: Connected. Waiting for Handshake...");
 	Instagram.tags.recent({
-		name: config.hashtag,
+		name: hashtag,
 		complete: function(data) {
 			socket.emit('initialAdd', { initialAdd: data });
 		}
@@ -99,7 +92,7 @@ app.post('/callback', function(req, res) {
 	console.log("Socket IO: Send Instagrams to Client");
 	var data = req.body;
 	data.forEach(function(tag) {
-		var url = 'https://api.instagram.com/v1/tags/' + tag.object_id + '/media/recent?client_id='+config.instagramClientID;
+		var url = 'https://api.instagram.com/v1/tags/' + tag.object_id + '/media/recent?client_id='+process.env.INSTAGAM_CLIENT_ID;
 		io.sockets.emit('add', { add: url });
 	});
 	res.end();
