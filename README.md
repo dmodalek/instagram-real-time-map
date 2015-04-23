@@ -34,6 +34,9 @@ Open your Browser at http://localhost:3000
 
 ## Ressources
 
+### Socket.io Docs
+- http://socket.io/docs/#using-with-express-3/4
+
 ### Instagram API
 - https://instagram.com/developer/realtime/
 
