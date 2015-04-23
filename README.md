@@ -26,10 +26,11 @@ Create .env file and set values
 ### Start ngrok
     $ ngrok localhost:5000
 
-Then, update the URLs in the __server.js__ file and in online in the __Instagramm Client Manager__ with the public URL provided by ngrok i.e. http://19f17d32.ngrok.com
+Then, update the URLs in the __.env__ file and in online in the __Instagramm Client Manager__ with the public URL provided by ngrok i.e. http://19f17d32.ngrok.com
 
 Instagram Client Manager: https://instagram.com/developer/clients/manage
 
+Open your Browser at http://localhost:5000
 
 ## Ressources
 

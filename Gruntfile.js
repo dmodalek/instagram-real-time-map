@@ -219,7 +219,7 @@ module.exports = function (grunt) {
         		    src: ['**/*.css', '!**/*.min.css'],
         		    dest: 'app/bower_components',
         		    filter: 'isFile',
-        		    ext: ".scss"
+        		    ext: '.scss'
         		}]
         	},
             dist: {
