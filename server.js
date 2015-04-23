@@ -1,22 +1,72 @@
-"use strict";
+'use strict';
 
-var Instagram = require('instagram-node-lib');
-var express = require("express");
-var env = require('dotenv').load();				// Load environment settings
-var logger = require('morgan');					// Logs HTTP Requests
+// Tools
+var env = require('dotenv').load();	// Load environment settings
+var logger = require('morgan');		// Logs HTTP Requests
+
+// Project
+var publicDir = 'app';
+
+///////////////////////////////////////////////////////////
+
+//
+// Express
+
+var http = require('http');
+var express = require('express');
+var routes = require('./routes');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var methodOverride = require('method-override');
+var session = require('express-session');
+var bodyParser = require('body-parser');
+var multer = require('multer');
+var errorHandler = require('errorhandler');
 
 var app = express();
-var port = process.env.PORT || 5000;
-var io = require('socket.io').listen(app.listen(port));
+var server = http.Server(app);
+
+// all environments
+app.set('port', process.env.PORT || 3000);
+
+app.set('view engine', 'html');
+app.use(favicon(__dirname + '/'+publicDir+'/favicon.ico'));
+app.use(logger('dev'));
+app.use(methodOverride());
+app.use(session({ resave: true,
+                  saveUninitialized: true,
+                  secret: 'uwotm8' }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer());
+
+app.get('/', routes.index);
+app.get('/detail/:id', routes.index);
+
+// development
+if ('development' == app.get('env')) {
+
+	app.use(express.static(path.join(__dirname, publicDir)));
+	app.use(express.static(path.join(__dirname, '/.tmp')));
+	app.set('views', path.join(__dirname, 'views'));
+
+	// error handling middleware should be loaded after the loading the routes
+	app.use(errorHandler());
+}
+
+// production
+if ('production' == app.get('env')) {
+	app.use(express.static(path.join(__dirname + '/dist')));
+}
+
+
+///////////////////////////////////////////////////////////
 
 //
-// Hashtag
+// Instagram API
 
-var hashtag = 'awesome';
-
-
-//
-// Instagram
+var Instagram = require('instagram-node-lib');
 
 // Set the configuration
 Instagram.set('client_id', process.env.INSTAGAM_CLIENT_ID);
@@ -26,35 +76,43 @@ Instagram.set('redirect_uri', process.env.SITE_URL);
 Instagram.set('maxSockets', 10);
 
 // Subscribe to Instagram Real Time API with Hashtag
-Instagram.subscriptions.subscribe({
-	object: 'tag',
-	object_id: hashtag,
-	aspect: 'media',
-	callback_url: process.env.SITE_URL + '/callback',
-	type: 'subscription',
-	id: '#'
-});
+// Instagram.subscriptions.subscribe({
+// 	object: 'tag',
+// 	object_id: process.env.SITE_URL,
+// 	aspect: 'media',
+// 	callback_url: process.env.SITE_URL + '/callback',
+// 	type: 'subscription',
+// 	id: '#'
+// });
 
+
+///////////////////////////////////////////////////////////
 
 //
 // Socket.io
 
+var socket = require('socket.io');
+var io = socket(server);
+
+// Start Server with socket.io
+server.listen(app.get('port'));
+
 // First connection
 io.sockets.on('connection', function (socket) {
 	console.log("Socket IO: Connected. Waiting for Handshake...");
-	Instagram.tags.recent({
-		name: hashtag,
-		complete: function(data) {
-			console.log("Socket IO: Initial Add");
-			socket.emit('initialAdd', { initialAdd: data });
-		}
-	});
+	// Instagram.tags.recent({
+	// 	name: process.env.SITE_URL,
+	// 	complete: function(data) {
+	// 		console.log("Socket IO: Initial Add");
+	// 		socket.emit('initialAdd', { initialAdd: data });
+	// 	}
+	// });
 });
 
 // Handshake
 app.get('/callback', function(req, res){
 	console.log("Socket IO: Handshake");
-	var handshake =  Instagram.subscriptions.handshake(req, res);
+	// var handshake =  Instagram.subscriptions.handshake(req, res);
 });
 
 // New Instagrams
@@ -79,32 +137,3 @@ app.post('/callback', function(req, res) {
 //     ]);
 //   io.set("polling duration", 10);
 // });
-
-
-///////////////////////////////////////////////////////////
-
-
-//
-// Express
-
-app.configure(function(){
-	app.use(logger('dev', { immediate: true, format: 'dev' }));
-	app.use(express.bodyParser());
-	app.use(express.methodOverride());
-	app.use(app.router);
-	app.use(express.errorHandler());
-
-	if ('development' === process.env.NODE_ENV) {
-		app.use(express.static(__dirname + '/app'));
-		app.use(express.static(__dirname + '/.tmp'));
-	} else {
-		app.use(express.static(__dirname + '/dist'));
-	}
-});
-
-// This must be the last route
-app.get('/detail/:id', function(req, res){
-	res.sendfile(__dirname + '/app/index.html');
-});
-
-console.log("Listening on " + process.env.SITE_URL);

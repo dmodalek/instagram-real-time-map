@@ -24,13 +24,13 @@ Create .env file and set values
     $ grunt serve
 
 ### Start ngrok
-    $ ngrok localhost:5000
+    $ ngrok localhost:3000
 
 Then, update the URLs in the __.env__ file and in online in the __Instagramm Client Manager__ with the public URL provided by ngrok i.e. http://19f17d32.ngrok.com
 
 Instagram Client Manager: https://instagram.com/developer/clients/manage
 
-Open your Browser at http://localhost:5000
+Open your Browser at http://localhost:3000
 
 ## Ressources
 
