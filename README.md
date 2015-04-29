@@ -34,6 +34,9 @@ Open your Browser at http://localhost:3000
 
 ## Ressources
 
+### Backbone Module Architecture
+- http://bocoup.com/weblog/organizing-your-backbone-js-application-with-modules/
+
 ### Socket.io Docs
 - http://socket.io/docs/#using-with-express-3/4
 

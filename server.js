@@ -34,9 +34,6 @@ app.set('view engine', 'html');
 app.use(favicon(__dirname + '/'+publicDir+'/favicon.ico'));
 app.use(logger('dev'));
 app.use(methodOverride());
-app.use(session({ resave: true,
-                  saveUninitialized: true,
-                  secret: 'uwotm8' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
@@ -76,14 +73,14 @@ Instagram.set('redirect_uri', process.env.SITE_URL);
 Instagram.set('maxSockets', 10);
 
 // Subscribe to Instagram Real Time API with Hashtag
-// Instagram.subscriptions.subscribe({
-// 	object: 'tag',
-// 	object_id: process.env.SITE_URL,
-// 	aspect: 'media',
-// 	callback_url: process.env.SITE_URL + '/callback',
-// 	type: 'subscription',
-// 	id: '#'
-// });
+Instagram.subscriptions.subscribe({
+	object: 'tag',
+	object_id: process.env.HASHTAG,
+	aspect: 'media',
+	callback_url: process.env.SITE_URL + '/callback',
+	type: 'subscription',
+	id: '#'
+});
 
 
 ///////////////////////////////////////////////////////////
@@ -99,29 +96,32 @@ server.listen(app.get('port'));
 
 // First connection
 io.sockets.on('connection', function (socket) {
-	console.log("Socket IO: Connected. Waiting for Handshake...");
-	// Instagram.tags.recent({
-	// 	name: process.env.SITE_URL,
-	// 	complete: function(data) {
-	// 		console.log("Socket IO: Initial Add");
-	// 		socket.emit('initialAdd', { initialAdd: data });
-	// 	}
-	// });
+	console.log("Socket IO: Connection");
+	Instagram.tags.recent({
+		name: process.env.HASHTAG,
+		complete: function(data) {
+			console.log("Socket IO: Recent Instagrams");
+			socket.emit('socketRecentInstagrams', { data: data});
+		}, error: function(e) {
+			console.log('Socket.io: Error');
+			console.log(e);
+		}
+	});
 });
 
 // Handshake
 app.get('/callback', function(req, res){
-	console.log("Socket IO: Handshake");
-	// var handshake =  Instagram.subscriptions.handshake(req, res);
+	console.log("Socket IO: Callback");
+	var handshake =  Instagram.subscriptions.handshake(req, res);
 });
 
 // New Instagrams
 app.post('/callback', function(req, res) {
-	console.log("Socket IO: Send Instagrams to Client");
+	console.log("Socket IO: New Instagrams");
 	var data = req.body;
 	data.forEach(function(tag) {
 		var url = 'https://api.instagram.com/v1/tags/' + tag.object_id + '/media/recent?client_id='+process.env.INSTAGAM_CLIENT_ID;
-		io.sockets.emit('add', { add: url });
+		io.sockets.emit('socketNewInstagrams', { url: url });
 	});
 	res.end();
 });
