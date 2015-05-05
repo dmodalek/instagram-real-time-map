@@ -8,6 +8,7 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="/styles/main.css">
+        <link rel="stylesheet" href="/styles/about.css">
         <!-- endbuild -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <!-- build:js scripts/vendor/modernizr.js -->
@@ -22,17 +23,15 @@
         <div id="map_canvas"></div>
 
 	    <div class="about-markup">
-	    	<button type="button">About</button>
+	    	<button class="about-trigger">About</button>
 	    	<div class="about-content">
-	    		<div>
-	    			<div class="content-style-text">
-	    				<span class="icon icon-close">Close the dialog</span>
-	    				<h2>Instagram Real Time Map</h2>
-        				<a href="https://github.com/dmodalek/instagram-real-time-map" target="_blank">View project on GitHub</a>
-	    			</div>
+	    		<div class="inner">
+    				<img class="close-trigger" src="/images/close.png" alt="close" />
+    				<h2>Instagram Real Time Map</h2>
+    				<a href="https://github.com/dmodalek/instagram-real-time-map" target="_blank">View project on GitHub</a>
 	    		</div>
 	    	</div>
-	    </div><!-- about-markup -->
+	    </div>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

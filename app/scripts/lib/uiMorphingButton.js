@@ -103,7 +103,7 @@
 				// callback
 				if( self.expanded ) {
 					// remove class active (after closing)
-					classie.removeClass( self.el, 'active' );
+					$(self.el).removeClass('active');
 					self.options.onAfterClose();
 				}
 				else {
@@ -133,8 +133,8 @@
 			self.contentEl.style.top = buttonPos.top + 'px';
 
 			if( self.expanded ) {
-				classie.removeClass( self.contentEl, 'no-transition' );
-				classie.removeClass( self.el, 'open' );
+				$(self.contentEl).removeClass('no-transition');
+				$(self.el).removeClass('open');
 			}
 			else {
 				setTimeout( function() {

@@ -9,20 +9,14 @@ var Insta = Insta || {};
 		el: '#about-markup',
 
 		events: {
-			'click .about-button': 'toggle'
+			'click .about-trigger': 'toggle'
 		},
 
 		initialize: function() {
 
 			this.UIBtnn = new UIMorphingButton(document.querySelector('.about-markup'), {
-				closeEl : '.icon-close'
+				closeEl : '.close-trigger'
 			} );
-
-			this.render();
-		},
-
-		render: function() {
-
 		},
 
 		toggle: function() {
