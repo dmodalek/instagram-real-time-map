@@ -50,11 +50,17 @@ var Insta = Insta || {};
 			}
 		});
 
+		// Map Click
+		// theMap.on('click', function(e) {
+		// 	console.log(e);
+		// 	theMap.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng));
+		// });
+
 		// Cluster Click
 		this.markerClusterGroup.on('click', function (ev) {
 			var image = ev.layer;
 			var imageTemplate = '<a href="{link}" target="_blank" title="View on Instagram"><img src="{image_big}"/></a><p>{caption}</a></p>';
-			ev.layer.bindPopup(L.Util.template(imageTemplate, image), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -440)}).openPopup();
+			ev.layer.bindPopup(L.Util.template(imageTemplate, image), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -440), autoPanPadding: [200, -400], closeOnClick: true, keepInView: true}).openPopup();
 		});
 
 		theMap.addLayer(this.markerClusterGroup);

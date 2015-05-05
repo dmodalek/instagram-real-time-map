@@ -22,16 +22,20 @@ var app = {
 			root: '/'
 		});
 
-		// Modules
+		// Collection
 		app.instagrams = new Insta.Instagrams({
 			model: Insta.Instagram,
 			vent: vent,
 			config: app.config
 		});
 
+		// View
 		app.mapView = new Insta.MapView({
 			collection: app.instagrams
 		});
+
+		// About
+		app.aboutView = new Insta.AboutView();
 
 		// // Socket
 		app.socket = new Insta.Socket({

@@ -6,10 +6,10 @@ var DetailView = Backbone.View.extend({
 	className: 'detail',
 
 	render: function(instagramId) {
-		console.log(instagramId);
-		this.$el.html(this.model.get('caption').text);
-		this.$el.toggleClass('selected', this.model.get('selected'));
-	    return this; // allows to chain othr method calls on render()
+		// console.log(instagramId);
+		// this.$el.html(this.model.get('caption').text);
+		// this.$el.toggleClass('selected', this.model.get('selected'));
+	 //    return this; // allows to chain othr method calls on render()
 	}
 
 

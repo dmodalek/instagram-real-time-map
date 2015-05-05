@@ -21,6 +21,19 @@
 
         <div id="map_canvas"></div>
 
+	    <div class="about-markup">
+	    	<button type="button">About</button>
+	    	<div class="about-content">
+	    		<div>
+	    			<div class="content-style-text">
+	    				<span class="icon icon-close">Close the dialog</span>
+	    				<h2>Instagram Real Time Map</h2>
+        				<a href="https://github.com/dmodalek/instagram-real-time-map" target="_blank">View project on GitHub</a>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div><!-- about-markup -->
+
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -31,7 +44,7 @@
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
 
-         <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
 
         <!-- build:js scripts/vendor.js -->
         <script src="/bower_components/jquery/dist/jquery.js"></script>
@@ -58,6 +71,7 @@
         <script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/scrollspy.js"></script>
         <script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js"></script>
         <script src="/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js"></script>
+        <script src="/scripts/lib/uiMorphingButton.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/main.js -->
@@ -65,10 +79,10 @@
         <script src="/scripts/helper.js"></script>
         <script src="/scripts/socket.js"></script>
 
-        <script src="scripts/modules/map.js"></script>
-        <script src="scripts/modules/detail.js"></script>
-        <script src="scripts/modules/instagram.js"></script>
-
+        <script src="/scripts/modules/map.js"></script>
+        <script src="/scripts/modules/detail.js"></script>
+        <script src="/scripts/modules/instagram.js"></script>
+        <script src="/scripts/modules/about.js"></script>
         <!-- endbuild -->
 </body>
 </html>

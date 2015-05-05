@@ -6,8 +6,12 @@ var path = require('path');
 
 var routes = {};
 
-routes.index = function(req, res) {
+routes.home = function(req, res) {
 	res.sendFile(path.join(__dirname + '/../app/index.html'));
+};
+
+routes.admin = function(req, res) {
+	res.sendFile(path.join(__dirname + '/../views/admin.html'));
 };
 
 module.exports = routes;

@@ -38,8 +38,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
-app.get('/', routes.index);
-app.get('/detail/:id', routes.index);
+app.get('/', routes.home);
+app.get('/about', routes.home);
+
+app.get('/admin', routes.admin);
 
 // development
 if ('development' == app.get('env')) {
