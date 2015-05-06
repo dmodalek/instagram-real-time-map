@@ -51,8 +51,10 @@
 			}
 
 			.close-trigger {
+				display: inline-block;
 				float: right;
 				cursor: pointer;
+				height: 30px;
 			}
 	}
 

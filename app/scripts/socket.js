@@ -13,21 +13,21 @@ var Insta = Insta || {};
 		// Socket.io
 		var socket = io.connect();
 
-		var onSocketRecentInstagrams = function(data){
+		var onSocketRecentInstagrams = function(recentInstagrams){
 			console.log('Socket: Recent Instagrams');
-			vent.trigger('socket:add', data);
+			vent.trigger('socket:add', recentInstagrams.data);
 		};
 
-		var onSocketNewInstagrams = function(data) {
+		var onSocketNewInstagrams = function(newInstagrams) {
 
 			$.ajax({
-				url: data.url,
+				url: newInstagrams.url,
 				type: 'POST',
 				crossDomain: true,
 				dataType: 'jsonp'
-			}).done(function (data) {
+			}).done(function (newInstagrams) {
 				console.log('Socket: New Instagrams');
-				vent.trigger('socket:add', data);
+				vent.trigger('socket:add', newInstagrams.data);
 			});
 		};
 

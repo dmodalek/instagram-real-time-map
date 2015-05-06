@@ -15,7 +15,9 @@ var Insta = Insta || {};
 		initialize: function(options) {
 			this.collection = options.collection;
 			this.listenTo(this.collection, 'add', this._addMarker);
-			this._createMap();
+			this.listenTo(this.collection, 'change:selected', this._selectMarker);
+
+			this.map = this._createMap();
 		},
 
 		_createMap: function() {
@@ -28,6 +30,8 @@ var Insta = Insta || {};
 			    maxBounds: options.boundaries
 			    */
 			});
+
+			var self = this;
 
 			// Basic Map Layer
 			var basicLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(this.map);
@@ -42,7 +46,7 @@ var Insta = Insta || {};
 
 				iconCreateFunction: function(cluster) {
 					var marker = cluster.getAllChildMarkers()[0];
-					var iconUrl = marker.image;
+					var iconUrl = marker.clusterImage;
 
 					return new L.DivIcon({
 						className: 'leaflet-cluster',
@@ -51,7 +55,8 @@ var Insta = Insta || {};
 				}
 			})
 			.on('click', function (ev) {
-				new Insta.MapDetailView({ instagram: ev.layer});
+				var marker = ev.layer;
+				self.collection._selectInstagram(marker);
 			})
 			.addTo(this.map);
 		},
@@ -60,14 +65,14 @@ var Insta = Insta || {};
 			new Insta.MapMarkerView({ cluster: this.markerClusterGroup, model : model});
 		},
 
-		_selectInstagram: function() {
-			console.log('selected');
+		_selectMarker: function(model) {
+			new Insta.MapDetailView({ model : model});
 		}
 	});
 
-	Insta.MapMarkerView = Backbone.View.extend({
+	///////////////////////////////////////////////////////////
 
-		// template: _.template( $('#personTemplate').html()),
+	Insta.MapMarkerView = Backbone.View.extend({
 
 		initialize: function(options){
 			this.cluster = options.cluster;
@@ -78,18 +83,14 @@ var Insta = Insta || {};
 		render: function(){
 
 			var self = this;
-			var icon = new L.Icon({iconUrl: this.model.get('images').thumbnail.url});
+			var icon = new L.Icon({iconUrl: this.model.get('image')});
 			var marker = new L.Marker([this.model.get('location').latitude, this.model.get('location').longitude], { icon:  icon});
-
-			marker.caption = this.model.get('caption').text;
-			marker.link = this.model.get('link');
-			marker.image = this.model.get('images').thumbnail.url;
-			marker.image_big = this.model.get('images').standard_resolution.url;
 			marker.id = this.model.get('id');
+			marker.clusterImage = this.model.get('image');
 
 			// Pre-Load image
 			$.ajax({
-				url: marker.image,
+				url: this.model.get('image'),
 				type: 'GET',
 				crossDomain: true
 			}).done(function (data) {
@@ -98,17 +99,20 @@ var Insta = Insta || {};
 		}
 	});
 
+	///////////////////////////////////////////////////////////
+
 	Insta.MapDetailView = Backbone.View.extend({
 
-		template: '<a href="{link}" target="_blank" title="View on Instagram"><img src="{image_big}"/></a><p>{caption}</a></p>',
+		template: '<a href="{url}" target="_blank" title="View on Instagram"><img src="{image}"/></a><p>{caption}</a></p>',
 
 		initialize: function(options) {
-			this.instagram = options.instagram;
+			this.model = options.model;
 			this.render();
 		},
 
 		render: function() {
-			this.instagram.bindPopup(L.Util.template(this.template, this.instagram), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -440), autoPanPadding: [200, -400], closeOnClick: true, keepInView: true}).openPopup();
+			console.log(this.model.toJSON());
+			// this.model.bindPopup(L.Util.template(this.template, this.model.toJSON()), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -440), autoPanPadding: [200, -400], closeOnClick: true, keepInView: true}).openPopup();
 		}
 	});
 

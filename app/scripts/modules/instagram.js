@@ -8,19 +8,19 @@ var Insta = Insta || {};
 	Insta.Instagram = Backbone.Model.extend({
 		defaults: {
 			id: null,
+			caption: '',
+			image: null,
+			url: null,
+			tags: '',
 			selected: false,
-			type: null,
-			images: {
-				thumbnail: {},
-				standard_resolution: {}
-			},
-			caption: {
-				text: ''
-			},
 			location: {
 				latitude: null,
 				longitude: null
 			}
+		},
+
+		parse: function() {
+			console.log('PARSE');
 		}
 	});
 
@@ -30,36 +30,65 @@ var Insta = Insta || {};
 		initialize: function(options) {
 			this.vent = options.vent;
 			this.config = options.config;
+			this.model = options.model;
 
 			_.bindAll(this, 'addToCollection');
 			this.vent.bind('socket:add', this.addToCollection);
+
+			// this.attributeMap: [
+			// 	{ name: 'id', 		mapping: 'deal.title'},
+			// 	{ name: 'caption', 	mapping: 'deal.division.name'},
+			//   	{ name: 'image', 	mapping: 'deal.option.price.formattedAmount'},
+			//   	{ name: 'url', 		mapping: 'deal.startsAt'},
+			//   	{ name: 'tags', 	mapping: 'deal.endsAt'},
+			//   	{ name: 'selected', mapping: 'deal.option.soldQuantity'}
+			//   	{ name: 'location', mapping: 'deal.option.soldQuantity'}
+			// ];
 		},
 
 		addToCollection: function(instagrams) {
-			var instagrams = this._parseInstagrams(instagrams.data);
-			this.add(instagrams);
+			var models = this._parseInstagrams(instagrams);
+			this.add(models);
 		},
 
 		_parseInstagrams: function(instagrams) {
-
 			var boundaries = this.config.boundaries;
-			var parsedInstagrams;
+			var instagramModels = [];
+			var instagramModel;
+
 
 			// Make array if single instagram
-			if (_.isArray(instagrams) == false) {
-				parsedInstagrams = new Array(instagrams);
-			}
+			instagrams = (_.isArray(instagrams)) ? instagrams : new Array(instagrams);
 
-			parsedInstagrams = _.filter(instagrams, function(instagram){
+			// Remove some that do not have a location
+			instagrams = _.filter(instagrams, function(instagram){
 				return 	instagram.type === 'image' &&
 						instagram.location //&&
-						// instagram.location.latitude > options.boundaries[0][0] &&
-						// instagram.location.latitude > options.boundaries[1][0] &&
-						// instagram.location.longitude > options.boundaries[0][1] &&
-						// instagram.location.longitude > options.boundaries[1][1]
+				// 		// instagram.location.latitude > options.boundaries[0][0] &&
+				// 		// instagram.location.latitude > options.boundaries[1][0] &&
+				// 		// instagram.location.longitude > options.boundaries[0][1] &&
+				// 		// instagram.location.longitude > options.boundaries[1][1]
 			});
 
-			return parsedInstagrams;
+
+			// Create clean models
+			_.each(instagrams, function(instagram) {
+
+				instagramModels.push({
+					id: instagram.id,
+					caption: instagram.caption.text,
+					image: instagram.images.thumbnail.url,
+					url: instagram.link,
+					tags: instagram.tags,
+					selected: false,
+					location: {
+						latitude: instagram.location.latitude,
+						longitude: instagram.location.longitude
+					}
+				});
+			});
+
+			return instagramModels;
 		},
 
 		// // Unselect all models
@@ -69,13 +98,16 @@ var Insta = Insta || {};
 			});
 		},
 
-		// Select a specific model from the collection
-		selectByID: function(id) {
+		_getSelectedInstagram: function() {
+			return this.where({selected: true});
+		},
+
+		_selectInstagram: function(marker) {
 			this.resetSelected();
-			var instagram = this.get(id);
+			var instagram = this.get(marker.id);
 			instagram.set({'selected': true});
 			return instagram.id;
-		},
+		}
 	});
 
 })();

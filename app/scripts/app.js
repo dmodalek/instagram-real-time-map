@@ -21,15 +21,15 @@ var app = {
 		});
 
 		// Collection
-		var instagrams = new Insta.Instagrams({
+		app.instagrams = new Insta.Instagrams({
 			model: Insta.Instagram,
 			vent: vent,
 			config: app.config
 		});
 
 		// View
-		new Insta.MapCollectionView({
-			collection: instagrams
+		app.mapCollectonView = new Insta.MapCollectionView({
+			collection: app.instagrams
 		});
 
 		// About
