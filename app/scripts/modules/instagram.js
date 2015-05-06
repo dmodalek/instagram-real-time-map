@@ -63,19 +63,19 @@ var Insta = Insta || {};
 		},
 
 		// // Unselect all models
-		// resetSelected: function() {
-		// 	this.each(function(model) {
-		// 		model.set({'selected': false});
-		// 	});
-		// },
+		resetSelected: function() {
+			this.each(function(model) {
+				model.set({'selected': false});
+			});
+		},
 
-		// // Select a specific model from the collection
-		// selectByID: function(id) {
-		// 	this.resetSelected();
-		// 	var instagram = this.get(id);
-		// 	instagram.set({'selected': true});
-		// 	return instagram.id;
-		// },
+		// Select a specific model from the collection
+		selectByID: function(id) {
+			this.resetSelected();
+			var instagram = this.get(id);
+			instagram.set({'selected': true});
+			return instagram.id;
+		},
 	});
 
 })();

@@ -9,8 +9,8 @@ Demo: http://instagram-real-time-map.herokuapp.com
 - Load Instagram via Socket.io in Real Time
 
 ## Roadmap
-- Map view and list view of Instagrams
 - Detail View with deeplink router support
+- Map view and list view of Instagrams
 - Template pre-compiling
 - Use ES 2015 module syntax with System.js
 - Precompile for Google Bot, use Polymer, React as view engine and Flux

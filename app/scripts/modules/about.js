@@ -4,34 +4,43 @@ var Insta = Insta || {};
 (function () {
 	'use strict';
 
+	Insta.AboutModel = Backbone.Model.extend();
+
 	Insta.AboutView = Backbone.View.extend({
 
 		el: '#about-markup',
 
 		events: {
-			'click .about-trigger': 'open',
-			'click .close-trigger': 'close'
+			'click .about-trigger': 'toggleState',
+			'click .close-trigger': 'toggleState'
 		},
 
 		initialize: function(options) {
 
 			this.vent = options.vent;
 			this.router = options.router;
-			this.vent.bind('router:about', this.open, this);
+			this.vent.bind('router:about', this.toggleState, this);
+
+			this.aboutModel = new Insta.AboutModel();
+			this.listenTo(this.aboutModel, 'change:open', this.render);
 
 			this.UIBtnn = new UIMorphingButton(this.el, {
 				closeEl : '.close-trigger'
 			} );
 		},
 
-		open: function() {
-			this.router.navigate('/about');
-			this.UIBtnn.toggle();
+		toggleState: function() {
+			this.aboutModel.set('open', !this.aboutModel.get('open'));
 		},
 
-		close: function() {
-			this.router.navigate('/');
-			this.UIBtnn.toggle();
+		render: function() {
+			if(this.aboutModel.get('open')) {
+				console.log('Show Detail');
+				// this.router.navigate('/about');
+			} else {
+				console.log('Hide Detail');
+				// this.router.navigate('/');
+			}
 		}
 	});
 

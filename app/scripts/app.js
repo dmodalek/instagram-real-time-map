@@ -21,25 +21,25 @@ var app = {
 		});
 
 		// Collection
-		app.instagrams = new Insta.Instagrams({
+		var instagrams = new Insta.Instagrams({
 			model: Insta.Instagram,
 			vent: vent,
 			config: app.config
 		});
 
 		// View
-		app.mapView = new Insta.MapView({
-			collection: app.instagrams
+		new Insta.MapCollectionView({
+			collection: instagrams
 		});
 
 		// About
-		app.aboutView = new Insta.AboutView({
+		new Insta.AboutView({
 			vent: vent,
 			router: router
 		});
 
 		// // Socket
-		app.socket = new Insta.Socket({
+		new Insta.Socket({
 			vent: vent
 		});
 	},

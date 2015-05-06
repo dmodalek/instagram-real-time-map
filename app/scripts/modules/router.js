@@ -7,7 +7,8 @@ var Insta = Insta || {};
 	Insta.Router = Backbone.Router.extend({
 
 		routes: {
-			'about': 'about'
+			'about': 'about',
+			'detail:id': 'detail'
 		},
 
 		initialize: function(options) {
@@ -16,6 +17,11 @@ var Insta = Insta || {};
 
 		about: function(){
 			this.vent.trigger('router:about');
+		},
+
+		detail: function(id) {
+			console.log('Detail View');
+			this.vent.trigger('router:detail');
 		}
 	});
 

@@ -1,36 +1,34 @@
-// app.Views.detail = DetailView;
+/*global Backbone, L */
+var Insta = Insta || {};
 
-var DetailView = Backbone.View.extend({
+(function () {
+	'use strict';
 
-	tagName: 'section',
-	className: 'detail',
+	Insta.DetailView = Backbone.View.extend({
 
-	render: function(instagramId) {
-		// console.log(instagramId);
-		// this.$el.html(this.model.get('caption').text);
-		// this.$el.toggleClass('selected', this.model.get('selected'));
-	 //    return this; // allows to chain othr method calls on render()
-	}
+		tagName: 'article',
+		className: 'detail',
 
+		template: '<p><%= caption.text %><hr></p>',
 
 
-	// template: _.template('Detail'),
-	// render: function() {
-		// this.$el.html(this.template(this.model.attributes));
-		// return this;
-	// },
 
-	// initialize: function() {
-		// console.log('Init Modal View');
-	// }
-});
+		initialize: function(options) {
+			_.bindAll(this, 'render');
+			console.log('init detail view');
 
+			this.listenTo(this.model, 'change:selected', this.render);
 
-// routes: {
-// 	'detail/:id': 'showDetail'
-// },
+		},
 
-// showDetail: function(id) {
-// 	console.log('Route: Detail');
-// 	window.App.Views.detail.render(id);
-// },
+		render: function() {
+			var tmpl = _.template(this.template);
+			this.$el.html(tmpl(this.model.toJSON()));
+			this.$el.toggleClass('selected', this.model.get('selected'));
+			return this;
+
+		}
+
+	});
+
+})();
