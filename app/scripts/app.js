@@ -16,10 +16,8 @@ var app = {
 		var vent = _.extend({}, Backbone.Events);
 
 		// Router
-		app.router = Backbone.Router.extend();
-		Backbone.history.start({
-			pushState: true,
-			root: '/'
+		var router = new Insta.Router({
+			vent: vent
 		});
 
 		// Collection
@@ -35,7 +33,10 @@ var app = {
 		});
 
 		// About
-		app.aboutView = new Insta.AboutView();
+		app.aboutView = new Insta.AboutView({
+			vent: vent,
+			router: router
+		});
 
 		// // Socket
 		app.socket = new Insta.Socket({
@@ -49,5 +50,12 @@ var app = {
 // Bootstrap
 
 $(function () {
+
 	new app.init();
+
+	Backbone.history.start({
+		pushState: true,
+		root: '/'
+	});
+
 });

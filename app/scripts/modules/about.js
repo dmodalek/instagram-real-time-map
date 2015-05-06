@@ -9,20 +9,30 @@ var Insta = Insta || {};
 		el: '#about-markup',
 
 		events: {
-			'click .about-trigger': 'toggle'
+			'click .about-trigger': 'open',
+			'click .close-trigger': 'close'
 		},
 
-		initialize: function() {
+		initialize: function(options) {
 
-			this.UIBtnn = new UIMorphingButton(document.querySelector('.about-markup'), {
+			this.vent = options.vent;
+			this.router = options.router;
+			this.vent.bind('router:about', this.open, this);
+
+			this.UIBtnn = new UIMorphingButton(this.el, {
 				closeEl : '.close-trigger'
 			} );
 		},
 
-		toggle: function() {
+		open: function() {
+			this.router.navigate('/about');
+			this.UIBtnn.toggle();
+		},
+
+		close: function() {
+			this.router.navigate('/');
 			this.UIBtnn.toggle();
 		}
-
 	});
 
 })();

@@ -38,9 +38,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 
-app.get('/', routes.home);
-app.get('/about', routes.home);
-
 app.get('/admin', routes.admin);
 
 // development
@@ -127,6 +124,10 @@ app.post('/callback', function(req, res) {
 	});
 	res.end();
 });
+
+
+// Get all other routes
+app.get('/*', routes.home);
 
 // Socket.io on Heroku https://devcenter.heroku.com/articles/using-socket-io-with-node-js-on-heroku
 // io.configure(function () {
