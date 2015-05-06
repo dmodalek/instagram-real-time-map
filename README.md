@@ -4,6 +4,20 @@ Uses the Instagramm Real-time API, Node.js with an Express Server, Backbone JS i
 
 Demo: http://instagram-real-time-map.herokuapp.com
 
+## Features
+- Express 4 Server
+- Load Instagram via Socket.io in Real Time
+
+## Roadmap
+- Map view and list view of Instagrams
+- Detail View with deeplink router support
+- Template pre-compiling
+- Use ES 2015 module syntax with System.js
+- Precompile for Google Bot, use Polymer, React as view engine and Flux
+- Admin View to save a subset of Instagrams as fallback
+- Add Statistics, Search
+- Change build process from Grunt to Gulp
+
 ## Installation (Local)
 
 Install node modules
