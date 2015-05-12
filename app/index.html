@@ -9,6 +9,7 @@
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="/styles/main.css">
         <link rel="stylesheet" href="/styles/about.css">
+        <link rel="stylesheet" href="/styles/statistics.css">
         <!-- endbuild -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <!-- build:js scripts/vendor/modernizr.js -->
@@ -32,6 +33,12 @@
 	    		</div>
 	    	</div>
 	    </div>
+
+	    <div id="statistics-markup"></div>
+
+	    <script id="statistics-template" type="text/template">
+	    	<p><%= total_added %> / <%= total_candidates %>  Instagrams added</p>
+	    </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
@@ -82,6 +89,7 @@
         <script src="/scripts/modules/map.js"></script>
         <script src="/scripts/modules/instagram.js"></script>
         <script src="/scripts/modules/about.js"></script>
+        <script src="/scripts/modules/statistics.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -38,6 +38,12 @@ var app = {
 			router: router
 		});
 
+		// Statistics
+		new Insta.StatisticsView({
+			vent: vent,
+			collection: app.instagrams
+		});
+
 		// // Socket
 		new Insta.Socket({
 			vent: vent

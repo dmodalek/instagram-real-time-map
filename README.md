@@ -8,37 +8,27 @@ Demo: http://instagram-real-time-map.herokuapp.com
 - Express 4 Server
 - Load Instagram via Socket.io in Real Time
 
-## Roadmap
-- Detail View with deeplink router support
-- Map view and list view of Instagrams
-- Template pre-compiling
-- Use ES 2015 module syntax with System.js
-- Precompile for Google Bot, use Polymer, React as view engine and Flux
-- Admin View to save a subset of Instagrams as fallback
-- Add Statistics, Search
-- Change build process from Grunt to Gulp
-
 ## Installation (Local)
 
 Install node modules
 
-    $ npm install
+	$ npm install
 
 Create .env file and set values
 
-    $ mv .env-sample .env
+	$ cp .env-sample .env
 
 
 ## Run
 
+### Start ngrok
+	$ ngrok localhost:3000
+
 ### Start Server
-    $ node server
+	$ npm start
 
 ### Start Client Asset Building
-    $ grunt serve
-
-### Start ngrok
-    $ ngrok localhost:3000
+	$ grunt start
 
 Then, update the URLs in the __.env__ file and in online in the __Instagramm Client Manager__ with the public URL provided by ngrok i.e. http://19f17d32.ngrok.com
 
@@ -47,6 +37,9 @@ Instagram Client Manager: https://instagram.com/developer/clients/manage
 Open your Browser at http://localhost:3000
 
 ## Ressources
+
+### Cats of Instagram
+- https://github.com/rethinkdb/cats-of-instagram
 
 ### Backbone Module Architecture
 - http://bocoup.com/weblog/organizing-your-backbone-js-application-with-modules/
@@ -60,12 +53,9 @@ Open your Browser at http://localhost:3000
 ### Backbone JS with Google Maps
 - http://natehunzaker.com/javascript/backbone/2011/02/11/learning-backbonejs-chapter-1-a-quick-overview.html
 
-## Real Time Example using Istagram and Node
+### Real Time Example using Istagram and Node
 - http://www.bymichaellancaster.com/blog/how-i-built-lollagram-lollapalooza-instagram-real-time-api/
 - https://github.com/weblancaster/instagram-real-time
-
-## Similar projects
-- http://www.jamietsao.com/blog/2011/3/23/mapstagram-mapping-instagram-photos-in-real-time.html
 
 ## Leaflet Project and Plugins
 - Leaflet: http://leafletjs.com/
@@ -77,10 +67,10 @@ Open your Browser at http://localhost:3000
 
 Based on https://github.com/yeoman/generator-backbone
 
-    $ yo backbone:router <router>
-    $ yo backbone:collection <collection>
-    $ yo backbone:model <model>
-    $ yo backbone:view <view>
+	$ yo backbone:router <router>
+	$ yo backbone:collection <collection>
+	$ yo backbone:model <model>
+	$ yo backbone:view <view>
 
 
 ## Heroku Deployment
@@ -99,8 +89,8 @@ Based on https://github.com/yeoman/generator-backbone
 
 Create and set the same Env variables that are in your local .env file. Plus, add the following Env var:
 
-    BUILDPACK_URL: https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git
+	BUILDPACK_URL: https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git
 
 ### Debugging
 
-     $ heroku logs --app instagram-real-time-map
+	 $ heroku logs --app instagram-real-time-map

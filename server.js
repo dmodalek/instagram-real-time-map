@@ -71,7 +71,7 @@ Instagram.set('callback_url', process.env.SITE_URL + '/callback');
 Instagram.set('redirect_uri', process.env.SITE_URL);
 Instagram.set('maxSockets', 10);
 
-// Subscribe to Instagram Real Time API with Hashtag
+// POST: Subscribe to Instagram Real Time API with Hashtag
 Instagram.subscriptions.subscribe({
 	object: 'tag',
 	object_id: process.env.HASHTAG,
@@ -93,30 +93,34 @@ var io = socket(server);
 // Start Server with socket.io
 server.listen(app.get('port'));
 
-// First connection
+// Client Connection
+// - fired once when a Client connects
 io.sockets.on('connection', function (socket) {
-	console.log("Socket IO: Connection");
-	Instagram.tags.recent({
-		name: process.env.HASHTAG,
-		complete: function(data) {
-			console.log("Socket IO: Recent Instagrams");
-			socket.emit('socketRecentInstagrams', { data: data});
-		}, error: function(e) {
-			console.log('Socket.io: Error');
-			console.log(e);
-		}
-	});
+	console.log("— Socket IO: Connection —");
+	// Instagram.tags.recent({
+	// 	name: process.env.HASHTAG,
+	// 	complete: function(data) {
+	// 		console.log("> Socket IO: Recent Instagrams");
+	// 		socket.emit('socketRecentInstagrams', { data: data});
+	// 	}, error: function(e) {
+	// 		console.log('> Socket.io: Error');
+	// 		console.log(e);
+	// 	}
+	// });
 });
 
-// Handshake
+// GET: Handshake
+// - verifies that we realy want to create a subscription
 app.get('/callback', function(req, res){
-	console.log("Socket IO: Callback");
+	console.log("— Socket IO: Handshake —");
 	var handshake =  Instagram.subscriptions.handshake(req, res);
 });
 
-// New Instagrams
+// POST: New Instagrams
+// - Instagrams POST to this URL when new Instagrams are available
 app.post('/callback', function(req, res) {
-	console.log("Socket IO: New Instagrams");
+	console.log("— Socket IO: New Instagrams —");
+
 	var data = req.body;
 	data.forEach(function(tag) {
 		var url = 'https://api.instagram.com/v1/tags/' + tag.object_id + '/media/recent?client_id='+process.env.INSTAGAM_CLIENT_ID;
