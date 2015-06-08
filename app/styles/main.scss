@@ -84,51 +84,56 @@ a {
  	left: 68px;
  }
 
- // Popup
- .leaflet-popup-instagram a.leaflet-popup-close-button {
- 	position: absolute;
- 	top: -12px;
- 	right: -12px;
- 	left: auto;
- 	background-color: #fff;
- 	padding: 0;
- 	border-radius: 30px;
- 	width: 30px;
- 	height: 30px;
- 	line-height: 30px;
- 	color: #555;
- }
- .leaflet-popup-instagram a.leaflet-popup-close-button:hover {
- 	color: #333;
- 	background-color: #eee;
- }
- .leaflet-popup-instagram .leaflet-popup-content-wrapper {
- 	padding: 0 0 1px 0;
- 	border-radius: 6px;
- }
- .leaflet-popup-instagram .leaflet-popup-content {
- 	margin: 13px 0;
- }
+//
+// Popup
 
- .leaflet-popup-content .link {
- 	background: #555;
+ .leaflet-popup-instagram {
+
+ 	a.leaflet-popup-close-button {
+	 	position: absolute;
+	 	top: -12px;
+	 	right: -12px;
+	 	left: auto;
+	 	background-color: #fff;
+	 	padding: 0;
+	 	border-radius: 30px;
+	 	width: 30px;
+	 	height: 30px;
+	 	line-height: 30px;
+	 	color: #555;
+
+		 &:hover {
+		 	color: #333;
+		 	background-color: #eee;
+		 }
+	}
+
+	 .leaflet-popup-content-wrapper {
+	 	padding: 0 0 1px 0;
+	 	border-radius: 6px;
+	 }
+
+	 .leaflet-popup-content {
+	 	margin: 13px 0;
+
+	 	.link {
+	 	 	background: #555;
+	 	 }
+
+		 img,
+		 video {
+		 	width: 301px;
+		 	height: 301px;
+		 	border-radius: 4px 4px 0 0;
+		 }
+
+		.caption {
+	 		margin: 5px 10px 0 10px;
+ 			overflow: hidden;
+ 			height: 100px;
+ 		}
+ 	}
  }
-
- .leaflet-popup-instagram img,
- .leaflet-popup-instagram video {
- 	// width: 301px;
- 	// height: 301px;
- 	// border-radius: 4px 4px 0 0;
- }
- .leaflet-popup-content .caption {
- 	margin: 5px 10px 0 10px;
- 	overflow: hidden;
- 	height: 100px;
- }
-
-
-
-
 
 
 

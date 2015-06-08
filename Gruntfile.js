@@ -291,6 +291,7 @@ module.exports = function (grunt) {
             // 'clean:server',
             'createDefaultTemplate',
             // 'jst',
+            'jshint',
             'sass:server',
             // 'connect:livereload',
             // 'open:server',

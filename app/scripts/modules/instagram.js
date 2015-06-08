@@ -61,11 +61,11 @@ var Insta = Insta || {};
 			// Remove some that do not have a location
 			instagrams = _.filter(instagrams, function(instagram){
 				return 	instagram.type === 'image' &&
-						instagram.location &&
-						instagram.location.latitude > boundaries[0][0] &&
-						instagram.location.latitude > boundaries[1][0] &&
-						instagram.location.longitude > boundaries[0][1] &&
-						instagram.location.longitude > boundaries[1][1];
+						instagram.location; // &&
+						// instagram.location.latitude > boundaries[0][0] &&
+						// instagram.location.latitude > boundaries[1][0] &&
+						// instagram.location.longitude > boundaries[0][1] &&
+						// instagram.location.longitude > boundaries[1][1];
 			});
 
 

@@ -35,7 +35,7 @@ var Insta = Insta || {};
 		},
 
 		updateAdded: function() {
-			var current = this.statisticsModel.get('total_added');
+			var current = this.statisticsModel.get('totalAdded');
 			this.statisticsModel.set('totalAdded', current + 1);
 		},
 
