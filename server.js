@@ -97,16 +97,16 @@ server.listen(app.get('port'));
 // - fired once when a Client connects
 io.sockets.on('connection', function (socket) {
 	console.log("— Socket IO: Connection —");
-	// Instagram.tags.recent({
-	// 	name: process.env.HASHTAG,
-	// 	complete: function(data) {
-	// 		console.log("> Socket IO: Recent Instagrams");
-	// 		socket.emit('socketRecentInstagrams', { data: data});
-	// 	}, error: function(e) {
-	// 		console.log('> Socket.io: Error');
-	// 		console.log(e);
-	// 	}
-	// });
+	Instagram.tags.recent({
+		name: process.env.HASHTAG,
+		complete: function(data) {
+			console.log("> Socket IO: Recent Instagrams");
+			socket.emit('socketRecentInstagrams', { data: data});
+		}, error: function(e) {
+			console.log('> Socket.io: Error');
+			console.log(e);
+		}
+	});
 });
 
 // GET: Handshake
@@ -132,15 +132,3 @@ app.post('/callback', function(req, res) {
 
 // Get all other routes
 app.get('/*', routes.home);
-
-// Socket.io on Heroku https://devcenter.heroku.com/articles/using-socket-io-with-node-js-on-heroku
-// io.configure(function () {
-//   io.set("transports", [
-//     'websocket'
-//     , 'xhr-polling'
-//     , 'flashsocket'
-//     , 'htmlfile'
-//     , 'jsonp-polling'
-//     ]);
-//   io.set("polling duration", 10);
-// });

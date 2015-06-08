@@ -11,29 +11,26 @@ var Insta = Insta || {};
 		var socket = io.connect();
 
 		// Recent Instagrams
-		// var onSocketRecentInstagrams = function(recentInstagrams){
-		// 	console.log('Socket: Recent Instagrams');
-		// 	vent.trigger('socket:add', recentInstagrams.data);
-		// };
+		var onSocketRecentInstagrams = function(recentInstagrams){
+			console.log('Socket: Recent Instagrams');
+			vent.trigger('socket:add', recentInstagrams.data);
+		};
 
 		// New Instagrams
 		var onSocketNewInstagrams = function(newInstagrams) {
-console.log(newInstagrams);
 			$.ajax({
 				url: newInstagrams.url,
 				type: 'POST',
 				crossDomain: true,
 				dataType: 'jsonp'
 			}).done(function (newInstagrams) {
-
-
 				console.log('Socket: New Instagrams');
 				vent.trigger('socket:add', newInstagrams.data);
 			});
 		};
 
 		// Socket Event: Recent Instagrams
-		// socket.on('socketRecentInstagrams', onSocketRecentInstagrams);
+		socket.on('socketRecentInstagrams', onSocketRecentInstagrams);
 
 		// Socket Event: New Instagrams
 		socket.on('socketNewInstagrams', onSocketNewInstagrams);
