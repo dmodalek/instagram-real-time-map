@@ -111,8 +111,8 @@ var Insta = Insta || {};
 		},
 
 		render: function() {
-			console.log(this.model.toJSON());
-			// this.model.bindPopup(L.Util.template(this.template, this.model.toJSON()), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -440), autoPanPadding: [200, -400], closeOnClick: true, keepInView: true}).openPopup();
+			// console.log(this.model.toJSON());
+			this.model.bindPopup(L.Util.template(this.template, this.model.toJSON()), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -440), autoPanPadding: [200, -400], closeOnClick: true, keepInView: true}).openPopup();
 		}
 	});
 
