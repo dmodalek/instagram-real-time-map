@@ -1,4 +1,4 @@
-/*global Backbone, L */
+/*global Backbone */
 var Insta = Insta || {};
 
 (function () {
@@ -6,9 +6,9 @@ var Insta = Insta || {};
 
 	Insta.StatisticsModel = Backbone.Model.extend({
 		defaults: {
-			total_candidates: 0,
-			total_added: 0,
-			last_update: 0
+			totalCandidates: 0,
+			totalAdded: 0,
+			lastUpdate: 0
 		}
 	});
 
@@ -34,14 +34,14 @@ var Insta = Insta || {};
 			this.render();
 		},
 
-		updateAdded: function(ev) {
+		updateAdded: function() {
 			var current = this.statisticsModel.get('total_added');
-			this.statisticsModel.set('total_added', current + 1);
+			this.statisticsModel.set('totalAdded', current + 1);
 		},
 
 		updateCandidates: function(ev) {
-			var current = this.statisticsModel.get('total_candidates');
-			this.statisticsModel.set('total_candidates', current + ev.length);
+			var current = this.statisticsModel.get('totalCandidates');
+			this.statisticsModel.set('totalCandidates', current + ev.length);
 		},
 
 		render: function() {

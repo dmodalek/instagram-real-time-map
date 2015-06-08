@@ -19,7 +19,7 @@ var Insta = Insta || {};
 			this.vent.trigger('router:about');
 		},
 
-		detail: function(id) {
+		detail: function() {
 			console.log('Detail View');
 			this.vent.trigger('router:detail');
 		}

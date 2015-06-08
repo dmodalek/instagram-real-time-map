@@ -34,10 +34,10 @@ var Insta = Insta || {};
 			var self = this;
 
 			// Basic Map Layer
-			var basicLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(this.map);
+			L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(this.map);
 
 			// Current Location
-			var lc = L.control.locate().addTo(this.map);
+			L.control.locate().addTo(this.map);
 
 			// Cluster
 			this.markerClusterGroup = new L.MarkerClusterGroup({
@@ -57,6 +57,8 @@ var Insta = Insta || {};
 			.on('click', function (ev) {
 				var marker = ev.layer;
 				self.collection._selectInstagram(marker);
+				var imageTemplate = '<a class="link" href="{url}" target="_blank" title="View on Instagram"><img src="{image}"/></a><div class="caption">{caption}</div>';
+				marker.bindPopup(L.Util.template(imageTemplate, marker), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -420)}).openPopup();
 			})
 			.addTo(this.map);
 		},
@@ -87,13 +89,16 @@ var Insta = Insta || {};
 			var marker = new L.Marker([this.model.get('location').latitude, this.model.get('location').longitude], { icon:  icon});
 			marker.id = this.model.get('id');
 			marker.clusterImage = this.model.get('image');
+			marker.url = this.model.get('url');
+			marker.image = this.model.get('image');
+			marker.caption = this.model.get('caption');
 
 			// Pre-Load image
 			$.ajax({
 				url: this.model.get('image'),
 				type: 'GET',
 				crossDomain: true
-			}).done(function (data) {
+			}).done(function () {
 				self.cluster.addLayer(marker);
 			});
 		}
@@ -112,7 +117,7 @@ var Insta = Insta || {};
 
 		render: function() {
 			// console.log(this.model.toJSON());
-			this.model.bindPopup(L.Util.template(this.template, this.model.toJSON()), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -440), autoPanPadding: [200, -400], closeOnClick: true, keepInView: true}).openPopup();
+			// this.model.bindPopup(L.Util.template(this.template, this.model.toJSON()), { className: 'leaflet-popup-instagram', offset: new L.Point(40, -440), autoPanPadding: [200, -400], closeOnClick: true, keepInView: true}).openPopup();
 		}
 	});
 

@@ -1,4 +1,4 @@
-/*global _, io */
+/*global io */
 var Insta = Insta || {};
 
 (function () {

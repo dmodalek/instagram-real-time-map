@@ -1,4 +1,4 @@
-/*global Backbone, L */
+/*global Backbone, UIMorphingButton */
 var Insta = Insta || {};
 
 (function () {

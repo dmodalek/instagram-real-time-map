@@ -110,20 +110,20 @@ a {
  	margin: 13px 0;
  }
 
- .leaflet-popup-content a {
+ .leaflet-popup-content .link {
  	background: #555;
  }
 
  .leaflet-popup-instagram img,
  .leaflet-popup-instagram video {
- 	width: 301px;
- 	height: 301px;
- 	border-radius: 4px 4px 0 0;
+ 	// width: 301px;
+ 	// height: 301px;
+ 	// border-radius: 4px 4px 0 0;
  }
- .leaflet-popup-instagram p {
+ .leaflet-popup-content .caption {
  	margin: 5px 10px 0 10px;
  	overflow: hidden;
- 	height: 80px;
+ 	height: 100px;
  }
 
 

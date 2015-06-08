@@ -1,4 +1,4 @@
-/*global Backbone, L */
+/*global Backbone */
 var Insta = Insta || {};
 
 (function () {
@@ -8,8 +8,7 @@ var Insta = Insta || {};
 
 		el: $('#admin'),
 
-		initialize: function(options) {
-
+		initialize: function() {
 			console.log('Admin View');
 		}
 	});
