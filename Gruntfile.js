@@ -230,7 +230,7 @@ module.exports = function (grunt) {
                     dest: '<%= yeoman.dist %>',
                     src: [
                         '*.{ico,txt}',
-                        'images/{,*/}*.{webp,gif}',
+                        'images/{,*/}*.{webp,gif,png}',
                         'styles/fonts/{,*/}*.*',
                         'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*.*'
                     ]
@@ -313,12 +313,12 @@ module.exports = function (grunt) {
         'sass:dist',
         'useminPrepare',
         //'imagemin',
-        //'htmlmin',
+        'htmlmin',
         'concat',
         'cssmin',
         'uglify',
         'copy',
-        'rev',
+        //'rev',
         'usemin'
     ]);
 
