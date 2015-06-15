@@ -6,7 +6,7 @@ Demo: http://instagram-real-time-map.herokuapp.com
 
 ### Features
 - Real-Time Instagram API with Socket.io
-- Express 4 Server
+- Express 4 Server with Nodemon
 - Heroku Deployment
 
 ## Installation
@@ -51,27 +51,25 @@ Based on https://github.com/yeoman/generator-backbone
 
 ### Deploy
 
-Auto-Deployment when pushing to GitHub.
+Enable Auto-Deploy when pushing to GitHub on Heroku.
 
-### Process
+### Logs
+
+	 $ heroku logs --app instagram-real-time-map
+
+### About the process
 
 1. Heroku runs __npm install__ which installs the node modules. 
 2. After that, the __postinstall__ from the package.json file hook is called, which installs bower components.
 3. A custom Heroku Build Pack is run in order to run Grunt
 
-### Hints
-
-- Heroku installs Grunt CLI als local module. Therefore we have to call Grunt with a relative path, see package.json
+Heroku installs Grunt CLI als local module. Therefore we have to call Grunt with a relative path, see package.json
 
 ### Set the Env vars
 
 Create and set the same Env variables that are in your local .env file. Plus, add the following Env var:
 
 	BUILDPACK_URL: https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt.git
-
-### Debugging
-
-	 $ heroku logs --app instagram-real-time-map
 
 
 ## Ressources
