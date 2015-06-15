@@ -49,6 +49,10 @@ Based on https://github.com/yeoman/generator-backbone
 
 ## Heroku Deployment
 
+### Deploy
+
+Auto-Deployment when pushing to GitHub.
+
 ### Process
 
 1. Heroku runs __npm install__ which installs the node modules. 
