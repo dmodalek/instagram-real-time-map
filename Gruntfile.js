@@ -266,30 +266,30 @@ module.exports = function (grunt) {
 	///////////////////////////////////////////////////////////
 
 
-    grunt.registerTask('createDefaultTemplate', function () {
-        grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
-    });
+    // grunt.registerTask('createDefaultTemplate', function () {
+    //     grunt.file.write('.tmp/scripts/templates.js', 'this.JST = this.JST || {};');
+    // });
 
     grunt.registerTask('start', function (target) {
-        if (target === 'dist') {
-            return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
-        }
+        // if (target === 'dist') {
+        //     return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
+        // }
 
-        if (target === 'test') {
-            return grunt.task.run([
-                // 'clean:server',
-                'createDefaultTemplate',
-                // 'jst',
-                'sass:server',
-                // 'connect:test',
-                // 'open:test',
-                'watch'
-            ]);
-        }
+        // if (target === 'test') {
+        //     return grunt.task.run([
+        //         // 'clean:server',
+        //         'createDefaultTemplate',
+        //         // 'jst',
+        //         'sass:server',
+        //         // 'connect:test',
+        //         // 'open:test',
+        //         'watch'
+        //     ]);
+        // }
 
         grunt.task.run([
             // 'clean:server',
-            'createDefaultTemplate',
+            // 'createDefaultTemplate',
             // 'jst',
             'jshint',
             'sass:server',
@@ -299,25 +299,12 @@ module.exports = function (grunt) {
         ]);
     });
 
-    grunt.registerTask('test', function (isConnected) {
-        isConnected = Boolean(isConnected);
-        var testTasks = [
-                // 'clean:server',
-                'createDefaultTemplate',
-                // 'jst',
-                'sass',
-                // 'connect:test',
-                // 'mocha',
-            ];
-
-        if(!isConnected) {
-            return grunt.task.run(testTasks);
-        } else {
-            // already connected so not going to connect again, remove the connect:test task
-            testTasks.splice(testTasks.indexOf('connect:test'), 1);
-            return grunt.task.run(testTasks);
-        }
-    });
+    // This Task is run automatically by Heroku
+    grunt.registerTask('default', [
+        'jshint',
+        'test',
+        'heroku:production'
+    ]);
 
     grunt.registerTask('heroku:production', [
         'clean:dist',
@@ -335,10 +322,24 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
-    grunt.registerTask('default', [
-        'jshint',
-        'test',
-        //'heroku:production'
-    ]);
+    // grunt.registerTask('test', function (isConnected) {
+    //     isConnected = Boolean(isConnected);
+    //     var testTasks = [
+    //             // 'clean:server',
+    //             'createDefaultTemplate',
+    //             // 'jst',
+    //             'sass',
+    //             // 'connect:test',
+    //             // 'mocha',
+    //         ];
+
+    //     if(!isConnected) {
+    //         return grunt.task.run(testTasks);
+    //     } else {
+    //         // already connected so not going to connect again, remove the connect:test task
+    //         testTasks.splice(testTasks.indexOf('connect:test'), 1);
+    //         return grunt.task.run(testTasks);
+    //     }
+    // });
 
 };
