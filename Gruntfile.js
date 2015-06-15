@@ -271,9 +271,9 @@ module.exports = function (grunt) {
     // });
 
     grunt.registerTask('start', function (target) {
-        // if (target === 'dist') {
-        //     return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
-        // }
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'open:server', 'connect:dist:keepalive']);
+        }
 
         // if (target === 'test') {
         //     return grunt.task.run([
@@ -302,13 +302,13 @@ module.exports = function (grunt) {
     // This Task is run automatically by Heroku
     grunt.registerTask('default', [
         'jshint',
-        'test',
+        // 'test',
         'heroku:production'
     ]);
 
     grunt.registerTask('heroku:production', [
         'clean:dist',
-        'createDefaultTemplate',
+        // 'createDefaultTemplate',
         // 'jst',
         'sass:dist',
         'useminPrepare',

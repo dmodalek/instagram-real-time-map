@@ -52,7 +52,7 @@ var Insta = Insta || {};
 		},
 
 		_parseInstagrams: function(instagrams) {
-			var boundaries = this.config.boundaries;
+			// var boundaries = this.config.boundaries;
 			var instagramModels = [];
 
 			// Make array if single instagram
