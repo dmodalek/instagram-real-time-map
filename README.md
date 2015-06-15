@@ -2,10 +2,13 @@
 
 Show Instagrams of a certain #Hashtag on a Map, using the Instagramm Real-time API, Node.js with an Express Server and Backbone JS in the Frontend.
 
+![Screenshot](screenshot.png "Screenshot")
+
 Demo: http://instagram-real-time-map.herokuapp.com
 
 ### Features
 - Real-Time Instagram API with Socket.io
+- Instagrams Cluster Groups
 - Express 4 Server with Nodemon
 - Heroku Deployment
 
